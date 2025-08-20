@@ -287,9 +287,9 @@ export default function AfterSalesQuiz() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-8 print:py-0">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">How good is your after-sales… really?</h1>
+        <h1 className="text-3xl font-bold tracking-tight">How good is your After Sales... really?</h1>
         <p className="mt-2 text-sm text-gray-600">
-          Built by a <span className="italic">Scotsman in Göteborg</span>. We've helped large Swedish OEMs—this quiz
+          Built by a <span className="italic">Scotsman in Göteborg</span>. We've helped large Swedish OEMs with all things After Sales related. This quiz
           turns those learnings into a quick, practical check for teams like yours.
         </p>
       </header>
