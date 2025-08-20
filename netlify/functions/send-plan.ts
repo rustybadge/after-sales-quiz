@@ -38,9 +38,9 @@ export const handler = async (event: any) => {
     // Convert base64 PDF data back to buffer
     const pdfBuffer = Buffer.from(pdfData, 'base64');
 
-    // Send email with PDF attachment
-    const { data, error } = await resend.emails.send({
-      from: 'After-Sales Quiz <noreply@humblebee.se>',
+          // Send email with PDF attachment
+      const { data, error } = await resend.emails.send({
+        from: 'After-Sales Quiz <onboarding@resend.dev>',
       to: [email],
       subject: 'Your Humblebee After-Sales Action Plan',
       html: `
