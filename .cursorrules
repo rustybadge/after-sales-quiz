@@ -1,0 +1,22 @@
+# .cursorrules
+
+## Project
+- App: After-Sales Quiz (Vite + React + TypeScript + Tailwind).
+- Purpose: quick diagnostic + maturity-aware recommendations for after-sales teams.
+- Primary file: `src/AfterSalesQuiz.tsx` (questions, weights, scoring, recommendations).
+
+## What to optimize (source of truth)
+- Recommendations must be maturity-aware:
+  - Show **Quick wins** only for categories below thresholds.
+  - If no weak spots, show **Next-horizon plays** (advanced actions).
+  - If no meaningful headroom (≤5 pts to 100 in all categories), show **Maintain & monitor**.
+- Keep UI minimal, no new dependencies, no CSS libs beyond Tailwind.
+- Plain-English copy, concise.
+
+## Constraints
+- TypeScript functional components.
+- Do not change build tooling or Tailwind config.
+- Prefer changes isolated to `src/AfterSalesQuiz.tsx`. Touch `src/App.tsx` only if absolutely necessary.
+
+## Style
+- Scandinavian minimalism. Clear headings, short sentences. Avoid buzzwords.

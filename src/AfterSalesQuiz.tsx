@@ -179,7 +179,17 @@ const QUESTIONS: Question[] = [
   },
 ];
 
-const ACTIONS: Record<Category, string[]> = {
+// Thresholds for "strong enough" categories
+const THRESHOLDS: Record<Category, number> = {
+  FTF: 86,
+  RemoteTriage: 75,
+  Parts: 91,
+  ETA: 80,
+  Playbooks: 80,
+  Predictive: 80,
+};
+
+const BASIC_ACTIONS: Record<Category, string[]> = {
   FTF: [
     "Add a mandatory pre-dispatch checklist to lift First-Time-Fix.",
     "Coach the 3 lowest-FTF techs using shadowing + 'golden fixes'.",
@@ -211,6 +221,46 @@ const ACTIONS: Record<Category, string[]> = {
     "Review pilot ROI; scale only what moved MTTR/FTF.",
   ],
 };
+
+const ADVANCED_ACTIONS: Record<Category, string[]> = {
+  FTF: [
+    "Push 88→92% via Pareto & targeted training.",
+    "Implement skill-based routing.",
+    "Expand kit coverage >60%.",
+  ],
+  RemoteTriage: [
+    "Target 25%+ remote saves.",
+    "Enable device log uploads.",
+    "QA triage quality; coach high false-negatives.",
+  ],
+  Parts: [
+    "Push critical fill-rate >98%.",
+    "Measure kit uptake.",
+    "Publish supplier OTIF and remediate laggards.",
+  ],
+  ETA: [
+    "Promise windows with confidence bands.",
+    "Live customer portal.",
+    "SLA credits for misses.",
+  ],
+  Playbooks: [
+    "Instrument usage analytics.",
+    "Auto-surface by error code.",
+    "Quarterly retire stale guides.",
+  ],
+  Predictive: [
+    "Alert precision >70%.",
+    "Expand to all critical subsystems.",
+    "Auto-create work orders.",
+  ],
+};
+
+const MAINTAIN_CHECKLIST = [
+  "Weekly review of all category scores.",
+  "Monthly team calibration on thresholds.",
+  "Quarterly refresh of action plans.",
+  "Annual review of category weights.",
+];
 
 function persona(score: number) {
   if (score >= 85) return { name: "Predictor", blurb: "Strong ops; scale predictive + continuous coaching." };
@@ -263,6 +313,27 @@ export default function AfterSalesQuiz() {
     const entries = Object.entries(byCategory.avg) as [Category, number][];
     return entries.sort((a, b) => (a[1] ?? 0) - (b[1] ?? 0));
   }, [byCategory]);
+
+  // Determine recommendation state
+  const recommendationState = useMemo(() => {
+    const weakCategories = Object.entries(byCategory.avg).filter(([cat, score]) => 
+      score < THRESHOLDS[cat as Category]
+    ) as [Category, number][];
+    
+    if (weakCategories.length > 0) {
+      return 'quick-wins';
+    }
+    
+    const hasHeadroom = Object.entries(byCategory.avg).some(([cat, score]) => 
+      score < 95 // 5 pts headroom to 100
+    );
+    
+    if (hasHeadroom) {
+      return 'next-horizon';
+    }
+    
+    return 'maintain';
+  }, [byCategory.avg]);
 
   const top3Weak = catsSortedWeakToStrong.slice(0, 3).map(([c]) => c);
 
@@ -382,34 +453,72 @@ export default function AfterSalesQuiz() {
           </div>
 
           <div className="rounded-2xl border border-gray-200 p-6 print:border-0">
-            <h3 className="text-xl font-semibold">Your top 3 quick wins</h3>
-            <p className="mt-1 text-sm text-gray-600">Chosen by your weakest categories.</p>
-            <ul className="mt-4 list-disc space-y-3 pl-6">
-              {top3Weak.map((cat) => {
-                const ideas = ACTIONS[cat].slice(0, 1); // show 1 primary action per weak cat
-                return (
-                  <li key={cat}>
-                    <span className="font-semibold">{labelCat(cat)}:</span>{" "}
-                    <span>{ideas[0]}</span>
-                  </li>
-                );
-              })}
-            </ul>
-            <details className="mt-3">
-              <summary className="cursor-pointer text-sm text-gray-600">See more suggested actions</summary>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                {top3Weak.map((cat) => (
-                  <div key={cat} className="rounded-xl border border-gray-200 p-4">
-                    <p className="mb-2 text-xs uppercase text-gray-500">{labelCat(cat)}</p>
-                    <ul className="list-disc space-y-2 pl-5 text-sm">
-                      {ACTIONS[cat].map((a, i) => (
-                        <li key={i}>{a}</li>
-                      ))}
-                    </ul>
+            {recommendationState === 'quick-wins' && (
+              <>
+                <h3 className="text-xl font-semibold">Your top 3 quick wins</h3>
+                <p className="mt-1 text-sm text-gray-600">Chosen by your weakest categories.</p>
+                <ul className="mt-4 list-disc space-y-3 pl-6">
+                  {top3Weak.map((cat) => {
+                    const ideas = BASIC_ACTIONS[cat].slice(0, 1); // show 1 primary action per weak cat
+                    return (
+                      <li key={cat}>
+                        <span className="font-semibold">{labelCat(cat)}:</span>{" "}
+                        <span>{ideas[0]}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <details className="mt-3">
+                  <summary className="cursor-pointer text-sm text-gray-600">See more suggested actions</summary>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    {top3Weak.map((cat) => (
+                      <div key={cat} className="rounded-xl border border-gray-200 p-4">
+                        <p className="mb-2 text-xs uppercase text-gray-500">{labelCat(cat)}</p>
+                        <ul className="list-disc space-y-2 pl-5 text-sm">
+                          {BASIC_ACTIONS[cat].map((action, i) => (
+                            <li key={i}>{action}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </details>
+                </details>
+              </>
+            )}
+
+            {recommendationState === 'next-horizon' && (
+              <>
+                <h3 className="text-xl font-semibold">Next-horizon plays</h3>
+                <p className="mt-1 text-sm text-gray-600">Advanced actions to push strong categories higher.</p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {Object.entries(byCategory.avg).map(([cat, score]) => {
+                    if (score >= 95) return null; // Skip categories at 95+
+                    return (
+                      <div key={cat} className="rounded-xl border border-gray-200 p-4">
+                        <p className="mb-2 text-xs uppercase text-gray-500">{labelCat(cat as Category)}</p>
+                        <ul className="list-disc space-y-2 pl-5 text-sm">
+                          {ADVANCED_ACTIONS[cat as Category].slice(0, 2).map((action, i) => (
+                            <li key={i}>{action}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+
+            {recommendationState === 'maintain' && (
+              <>
+                <h3 className="text-xl font-semibold">Maintain & monitor</h3>
+                <p className="mt-1 text-sm text-gray-600">All categories are strong. Focus on sustaining performance.</p>
+                <ul className="mt-4 list-disc space-y-3 pl-6">
+                  {MAINTAIN_CHECKLIST.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
 
           <div className="flex flex-wrap gap-3 print:hidden">
@@ -428,7 +537,7 @@ export default function AfterSalesQuiz() {
                 )}\nPersona: ${personaInfo.name}\n\nCategory scores:\n${Object.entries(byCategory.avg)
                   .map(([c, v]) => `${labelCat(c as Category)}: ${formatPct(v || 0)}`)
                   .join("\n")}\n\nTop 3 quick wins:\n${top3Weak
-                  .map((c) => `• ${labelCat(c)} — ${ACTIONS[c][0]}`)
+                  .map((c) => `• ${labelCat(c)} — ${BASIC_ACTIONS[c][0]}`)
                   .join("\n")}\n\nCould we get the 1-page checklist + blank benchmark?`
               )}`}
               className="rounded-2xl bg-black px-4 py-2 text-sm font-semibold text-white"
