@@ -37,7 +37,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({ company, totalScore, pe
       });
 
       // Convert PDF to base64 for transmission
-      const pdfBase64 = btoa(String.fromCharCode(...pdfData));
+      const pdfBase64 = btoa(String.fromCharCode.apply(null, Array.from(pdfData)));
 
       // Send to our Netlify function
       const response = await fetch('/.netlify/functions/send-plan', {
