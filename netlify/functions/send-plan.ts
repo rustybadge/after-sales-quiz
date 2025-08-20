@@ -45,7 +45,15 @@ export const handler = async (event: any) => {
       subject: 'Your Humblebee After-Sales Action Plan',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333;">Your Action Plan is Ready! 🎯</h2>
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+            <h1 style="color: white; margin: 0; font-size: 28px;">🐝 HUMBLEBEE</h1>
+            <p style="color: white; margin: 10px 0 0 0; font-size: 16px; opacity: 0.9;">After-Sales Performance Experts</p>
+          </div>
+          
+          <!-- Content -->
+          <div style="background: white; padding: 30px; border: 1px solid #e5e7eb;">
+            <h2 style="color: #1f2937; margin-top: 0;">Your Action Plan is Ready! 🎯</h2>
           
           <p>Hi there,</p>
           
@@ -77,11 +85,18 @@ export const handler = async (event: any) => {
           <p>Need help implementing any of these recommendations? We're here to support you!</p>
           
           <p>Best regards,<br>The Humblebee Team</p>
+          </div>
           
-          <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
-          <p style="font-size: 12px; color: #666;">
-            This email was sent to ${email}. If you didn't expect this, please ignore it.
-          </p>
+          <!-- Footer -->
+          <div style="background: #1f2937; padding: 20px; text-align: center; border-radius: 0 0 10px 10px;">
+            <p style="color: white; margin: 0; font-size: 14px;">🐝 <strong>HUMBLEBEE</strong></p>
+            <p style="color: #9ca3af; margin: 5px 0 0 0; font-size: 12px;">After-Sales Performance Optimization</p>
+            <p style="color: #9ca3af; margin: 5px 0 0 0; font-size: 12px;">hello@humblebee.se | www.humblebee.se</p>
+            <hr style="margin: 15px 0; border: none; border-top: 1px solid #374151;">
+            <p style="color: #6b7280; margin: 0; font-size: 11px;">
+              This email was sent to ${email}. If you didn't expect this, please ignore it.
+            </p>
+          </div>
         </div>
       `,
       attachments: [
