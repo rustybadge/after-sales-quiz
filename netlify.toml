@@ -9,6 +9,22 @@
   from = "/*"
   to = "/index.html"
   status = 200
+  force = true
+
+[[redirects]]
+  from = "/quiz"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/results"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/landing"
+  to = "/index.html"
+  status = 200
 
 [build.processing]
   skip_processing = false

@@ -6,9 +6,11 @@ function App() {
   const [showQuiz, setShowQuiz] = useState(false);
 
   useEffect(() => {
-    // Check if URL has ?start=1 parameter
+    // Check if URL has ?start=1 parameter OR if we're on a specific path
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('start') === '1') {
+    const path = window.location.pathname;
+    
+    if (urlParams.get('start') === '1' || path === '/quiz' || path === '/results') {
       setShowQuiz(true);
     }
   }, []);
