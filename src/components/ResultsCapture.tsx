@@ -37,6 +37,15 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
     
     try {
       // Generate the PDF
+      console.log('Generating PDF with data:', {
+        company,
+        totalScore,
+        personaName,
+        categoryScores,
+        top3Weak,
+        recommendationState
+      });
+      
       const pdfData = buildPlanPdf({
         company,
         totalScore,
@@ -46,8 +55,15 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
         recommendationState
       });
 
+      console.log('PDF data generated:', pdfData ? `Length: ${pdfData.length}` : 'undefined');
+
+      if (!pdfData) {
+        throw new Error('PDF generation failed - no data returned');
+      }
+
       // Convert PDF to base64 for transmission
       const pdfBase64 = btoa(String.fromCharCode.apply(null, Array.from(pdfData)));
+      console.log('PDF converted to base64, length:', pdfBase64.length);
 
       // Send to our Netlify function
       const response = await fetch('/.netlify/functions/send-plan', {
