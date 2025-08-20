@@ -37,7 +37,7 @@ const WEIGHTS: Record<Category, number> = {
 const QUESTIONS: Question[] = [
   {
     id: "q1",
-    text: "First-Time-Fix (FTF) last 30 days?",
+    text: "Solved on the first visit (First-Time-Fix, FTF) in the last 30 days?",
     category: "FTF",
     options: [
       { label: "≤70%", value: 20 },
@@ -49,7 +49,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "q2",
-    text: "% of jobs with remote triage BEFORE dispatch?",
+    text: "% of jobs with a pre-dispatch diagnosis before sending a technician (remote triage)?",
     category: "RemoteTriage",
     options: [
       { label: "0%", value: 0 },
@@ -61,7 +61,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "q3",
-    text: "Repeat-visit rate (jobs needing 2+ visits)?",
+    text: "% of jobs that needed a second visit (repeat-visit rate)?",
     category: "FTF",
     options: [
       { label: ">30%", value: 10 },
@@ -73,7 +73,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "q4",
-    text: "Parts fill rate for CRITICAL SKUs?",
+    text: "Critical spare parts available immediately (line fill rate)?",
     category: "Parts",
     options: [
       { label: "≤70%", value: 20 },
@@ -85,7 +85,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "q5",
-    text: "Initial ETA sent within 2 hours of ticket?",
+    text: "Was an initial estimate given within 2 hours of ticket creation (ETA)?",
     category: "ETA",
     options: [
       { label: "Never", value: 0 },
@@ -97,7 +97,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "q6",
-    text: "Confirmed ETA sent within 24 hours?",
+    text: "Was a confirmed estimate sent within 24 hours (ETA)?",
     category: "ETA",
     options: [
       { label: "Never", value: 0 },
@@ -109,7 +109,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "q7",
-    text: "Top 10 'golden fixes' documented step-by-step?",
+    text: "Are step-by-step work instructions & checklists in place for your top 10 fixes (playbooks)?",
     category: "Playbooks",
     options: [
       { label: "0 of 10", value: 0 },
@@ -121,7 +121,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "q8",
-    text: "Predictive/condition monitoring deployed?",
+    text: "Do you use predictive monitoring on critical subsystems (condition-based maintenance, CBM)?",
     category: "Predictive",
     options: [
       { label: "No", value: 0 },
@@ -133,7 +133,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "q9",
-    text: "% jobs using pre-bundled service kits?",
+    text: "% of jobs using pre-bundled service kits (parts kits)?",
     category: "Parts",
     options: [
       { label: "0%", value: 0 },
@@ -145,7 +145,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "q10",
-    text: "Median MTTR (open → resolved)?",
+    text: "Median time to resolve from open to complete (MTTR)?",
     category: "FTF",
     options: [
       { label: ">14 days", value: 10 },
@@ -157,7 +157,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "q11",
-    text: "% inbound issues resolved WITHOUT a truck roll?",
+    text: "% of inbound issues resolved without a technician visit (remote saves)?",
     category: "RemoteTriage",
     options: [
       { label: "0%", value: 0 },
@@ -169,7 +169,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "q12",
-    text: "Serial/model captured on >95% of service events?",
+    text: "Is serial number/model captured on more than 95% of service tickets?",
     category: "Playbooks",
     options: [
       { label: "No", value: 0 },
