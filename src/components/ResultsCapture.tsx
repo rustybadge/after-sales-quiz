@@ -5,9 +5,26 @@ interface ResultsCaptureProps {
   company?: string;
   totalScore: number;
   personaName: string;
+  categoryScores: {
+    FTF: number;
+    RemoteTriage: number;
+    Parts: number;
+    ETA: number;
+    Playbooks: number;
+    Predictive: number;
+  };
+  top3Weak: string[];
+  recommendationState: 'quick-wins' | 'next-horizon' | 'maintain';
 }
 
-const ResultsCapture: React.FC<ResultsCaptureProps> = ({ company, totalScore, personaName }) => {
+const ResultsCapture: React.FC<ResultsCaptureProps> = ({ 
+  company, 
+  totalScore, 
+  personaName, 
+  categoryScores, 
+  top3Weak, 
+  recommendationState 
+}) => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,16 +41,9 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({ company, totalScore, pe
         company,
         totalScore,
         personaName,
-        categoryScores: {
-          FTF: 75, // These would come from the quiz results
-          RemoteTriage: 60,
-          Parts: 80,
-          ETA: 85,
-          Playbooks: 70,
-          Predictive: 45
-        },
-        top3Weak: ['Remote Triage', 'Predictive Monitoring', 'Playbooks'],
-        recommendationState: 'quick-wins'
+        categoryScores,
+        top3Weak,
+        recommendationState
       });
 
       // Convert PDF to base64 for transmission

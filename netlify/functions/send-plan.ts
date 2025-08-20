@@ -14,12 +14,24 @@ export const handler = async (event: any) => {
   try {
     // Parse the request body
     const body = JSON.parse(event.body);
+    console.log('Received body:', JSON.stringify(body, null, 2));
+    
     const { email, company, totalScore, personaName, pdfData } = body;
 
-    if (!email || !pdfData) {
+    // Log what we received
+    console.log('Extracted fields:', { email, company, totalScore, personaName, pdfDataLength: pdfData ? pdfData.length : 'undefined' });
+
+    if (!email) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'Missing required fields' })
+        body: JSON.stringify({ error: 'Missing email field' })
+      };
+    }
+
+    if (!pdfData) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Missing PDF data' })
       };
     }
 

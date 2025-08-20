@@ -526,6 +526,9 @@ export default function AfterSalesQuiz() {
             company={company}
             totalScore={byCategory.total}
             personaName={personaInfo.name}
+            categoryScores={byCategory.avg}
+            top3Weak={top3Weak}
+            recommendationState={recommendationState}
           />
 
           <div className="flex flex-wrap gap-3 print:hidden">
