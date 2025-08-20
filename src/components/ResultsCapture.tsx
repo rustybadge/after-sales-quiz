@@ -18,39 +18,27 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({ company, totalScore, pe
     setIsSubmitting(true);
     
     try {
-      // Create a hidden form element and submit it to Netlify
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = '/';
-      form.style.display = 'none';
+      // Use fetch API to submit to Netlify Forms without page navigation
+      const formData = new FormData();
+      formData.append('form-name', 'quiz-results'); // Important: Netlify needs this
+      formData.append('email', email);
+      formData.append('company', company || '');
+      formData.append('totalScore', totalScore.toString());
+      formData.append('persona', personaName);
+      formData.append('timestamp', new Date().toISOString());
 
-      // Add form name for Netlify detection
-      form.setAttribute('name', 'quiz-results');
-      form.setAttribute('data-netlify', 'true');
-
-      // Add all the form fields
-      const fields = [
-        { name: 'email', value: email },
-        { name: 'company', value: company || '' },
-        { name: 'totalScore', value: totalScore.toString() },
-        { name: 'persona', value: personaName },
-        { name: 'timestamp', value: new Date().toISOString() }
-      ];
-
-      fields.forEach(field => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = field.name;
-        input.value = field.value;
-        form.appendChild(input);
+      // Submit to Netlify Forms using fetch
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
       });
 
-      // Add the form to the DOM, submit it, and remove it
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
-
-      setIsSubmitted(true);
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        throw new Error('Form submission failed');
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
       // Fallback: just show success state
