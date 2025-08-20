@@ -8,6 +8,17 @@
   </head>
   <body>
     <div id="root"></div>
+    
+    <!-- Hidden form for Netlify Forms -->
+    <form name="quiz-results" netlify netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+      <input type="text" name="company" />
+      <input type="text" name="totalScore" />
+      <input type="text" name="persona" />
+      <input type="text" name="timestamp" />
+      <input type="text" name="bot-field" />
+    </form>
+    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

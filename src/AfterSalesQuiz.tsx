@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import ResultsCapture from "./components/ResultsCapture";
 
 /** ---------------------------
  *  AFTER-SALES QUIZ (1 file)
@@ -520,6 +521,12 @@ export default function AfterSalesQuiz() {
               </>
             )}
           </div>
+
+          <ResultsCapture 
+            company={company}
+            totalScore={byCategory.total}
+            personaName={personaInfo.name}
+          />
 
           <div className="flex flex-wrap gap-3 print:hidden">
             <button
