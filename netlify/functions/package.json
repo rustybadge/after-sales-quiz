@@ -1,9 +1,0 @@
-{
-  "name": "netlify-functions",
-  "version": "1.0.0",
-  "description": "Netlify functions for after-sales quiz",
-  "main": "send-plan.ts",
-  "dependencies": {
-    "resend": "^2.0.0"
-  }
-}
