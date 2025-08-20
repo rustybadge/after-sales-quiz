@@ -17,6 +17,7 @@ function App() {
     setShowQuiz(true);
     // Update URL without page reload
     window.history.pushState({}, '', '?start=1');
+    // Force a small change to trigger deployment
   };
 
   return (
