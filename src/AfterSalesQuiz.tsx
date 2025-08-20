@@ -446,7 +446,7 @@ export default function AfterSalesQuiz() {
           </div>
 
           <p className="mt-2 text-xs text-gray-500 print:hidden">
-            Psst. You can embed this on a private URL and QR-link to it from a paper letter.
+            Add something in the footer here later.
           </p>
         </section>
       )}
