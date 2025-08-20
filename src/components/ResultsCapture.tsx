@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { buildPlanPdf } from '../pdf/plan';
 
 interface ResultsCaptureProps {
   company?: string;
@@ -18,26 +19,46 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({ company, totalScore, pe
     setIsSubmitting(true);
     
     try {
-      // Use fetch API to submit to Netlify Forms without page navigation
-      const formData = new FormData();
-      formData.append('form-name', 'quiz-results'); // Important: Netlify needs this
-      formData.append('email', email);
-      formData.append('company', company || '');
-      formData.append('totalScore', totalScore.toString());
-      formData.append('persona', personaName);
-      formData.append('timestamp', new Date().toISOString());
+      // Generate the PDF
+      const pdfData = buildPlanPdf({
+        company,
+        totalScore,
+        personaName,
+        categoryScores: {
+          FTF: 75, // These would come from the quiz results
+          RemoteTriage: 60,
+          Parts: 80,
+          ETA: 85,
+          Playbooks: 70,
+          Predictive: 45
+        },
+        top3Weak: ['Remote Triage', 'Predictive Monitoring', 'Playbooks'],
+        recommendationState: 'quick-wins'
+      });
 
-      // Submit to Netlify Forms using fetch
-      const response = await fetch('/', {
+      // Convert PDF to base64 for transmission
+      const pdfBase64 = btoa(String.fromCharCode(...pdfData));
+
+      // Send to our Netlify function
+      const response = await fetch('/.netlify/functions/send-plan', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString(),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          company,
+          totalScore,
+          personaName,
+          pdfData: pdfBase64
+        }),
       });
 
       if (response.ok) {
         setIsSubmitted(true);
       } else {
-        throw new Error('Form submission failed');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send email');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -58,9 +79,9 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({ company, totalScore, pe
             </svg>
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-green-900">Thanks! We'll be in touch</h3>
+            <h3 className="text-lg font-semibold text-green-900">Action Plan Sent! 📧</h3>
             <p className="text-green-700">
-              We'll send you the detailed action plan and benchmark data within 24 hours.
+              Your personalized Humblebee action plan has been sent to your email with the PDF attached.
             </p>
           </div>
         </div>
