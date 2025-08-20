@@ -55,15 +55,17 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({ company, totalScore, pe
       });
 
       if (response.ok) {
+        const result = await response.json();
+        console.log('Email sent successfully:', result);
         setIsSubmitted(true);
       } else {
         const errorData = await response.json();
+        console.error('Function error:', errorData);
         throw new Error(errorData.error || 'Failed to send email');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      // Fallback: just show success state
-      setIsSubmitted(true);
+      alert(`Error: ${error.message}. Check console for details.`);
     } finally {
       setIsSubmitting(false);
     }
