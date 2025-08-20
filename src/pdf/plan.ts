@@ -136,7 +136,12 @@ export function buildPlanPdf(results: QuizResults): Uint8Array {
     console.log('Generating PDF output...');
     const output = doc.output('arraybuffer');
     console.log('PDF output generated, type:', typeof output, 'length:', output.byteLength);
-    return output as Uint8Array;
+    
+    // Convert ArrayBuffer to Uint8Array properly
+    const uint8Array = new Uint8Array(output);
+    console.log('Converted to Uint8Array, length:', uint8Array.length);
+    
+    return uint8Array;
   } catch (error) {
     console.error('Error generating PDF:', error);
     throw new Error(`PDF generation failed: ${error.message}`);
