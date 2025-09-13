@@ -109,7 +109,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
           <div>
             <h3 className="text-lg font-semibold text-green-900">Action Plan Sent! 📧</h3>
             <p className="text-green-700">
-              Your personalized Humblebee action plan has been sent to your email with the PDF attached.
+              Your personalized action plan has been sent to your email with a PDF attached.
             </p>
           </div>
         </div>

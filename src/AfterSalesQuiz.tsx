@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import ResultsCapture from "./components/ResultsCapture";
+import { buildPlanPdf } from "./pdf/plan";
 
 /** ---------------------------
  *  AFTER-SALES QUIZ (1 file)
@@ -278,6 +278,9 @@ export default function AfterSalesQuiz() {
   const [company, setCompany] = useState("");
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
   const byCategory = useMemo(() => {
     const map: Record<Category, number[]> = {
@@ -353,6 +356,60 @@ export default function AfterSalesQuiz() {
   function handlePrint() {
     window.print();
   }
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+
+    setIsSubmitting(true);
+    
+    try {
+      // Generate the PDF
+      const pdfData = buildPlanPdf({
+        company,
+        totalScore: byCategory.total,
+        personaName: personaInfo.name,
+        categoryScores: byCategory.avg,
+        top3Weak,
+        recommendationState
+      });
+
+      if (!pdfData) {
+        throw new Error('PDF generation failed - no data returned');
+      }
+
+      // Convert PDF to base64 for transmission
+      const pdfBase64 = btoa(String.fromCharCode.apply(null, Array.from(pdfData)));
+
+      // Send to our Netlify function
+      const response = await fetch('/.netlify/functions/send-plan', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          company,
+          totalScore: byCategory.total,
+          personaName: personaInfo.name,
+          pdfData: pdfBase64
+        }),
+      });
+
+      if (response.ok) {
+        setEmailSent(true);
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send email');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+      alert(`Error: ${errorMessage}. Check console for details.`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const allAnswered = QUESTIONS.every((q) => typeof answers[q.id] === "number");
 
@@ -697,71 +754,113 @@ export default function AfterSalesQuiz() {
               )}
             </div>
 
-          <ResultsCapture 
-            company={company}
-            totalScore={byCategory.total}
-            personaName={personaInfo.name}
-            categoryScores={byCategory.avg}
-            top3Weak={top3Weak}
-            recommendationState={recommendationState}
-          />
-
-          {/* Action Buttons */}
+          {/* Unified CTA Block */}
           <div className="bg-white rounded-3xl border border-purple-200 p-8 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">Next Steps</h3>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <button
-                onClick={handlePrint}
-                className="flex items-center justify-center gap-3 rounded-2xl border border-purple-300 px-6 py-4 text-sm font-medium hover:border-purple-800 hover:bg-purple-50 transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Download as PDF
-              </button>
-              
-              <a
-                href={`mailto:hello@humblebee.se?subject=After-Sales%20Quiz%20Result%20${encodeURIComponent(
-                  company || ""
-                )}&body=${encodeURIComponent(
-                  `Hi — here is our quiz result for ${company || "our company"}:\n\nTotal score: ${formatPct(
-                    byCategory.total
-                  )}\nPersona: ${personaInfo.name}\n\nCategory scores:\n${Object.entries(byCategory.avg)
-                    .map(([c, v]) => `${labelCat(c as Category)}: ${formatPct(v || 0)}`)
-                    .join("\n")}\n\nTop 3 quick wins:\n${top3Weak
-                    .map((c) => `• ${labelCat(c)} — ${BASIC_ACTIONS[c][0]}`)
-                    .join("\n")}\n\nCould we get the 1-page checklist + blank benchmark?`
-                )}`}
-                className="flex items-center justify-center gap-3 rounded-2xl bg-black px-6 py-4 text-sm font-semibold text-white hover:bg-gray-800 transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                Email 1-page plan
-              </a>
-              
-              <a
-                href="https://calendly.com/your-calendly/15min"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-center gap-3 rounded-2xl border border-purple-300 px-6 py-4 text-sm font-medium hover:border-purple-800 hover:bg-purple-50 transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Book 15-min walkthrough
-              </a>
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Get your action plan</h3>
+              <p className="text-gray-600">Choose how you'd like to receive your personalized results and recommendations</p>
             </div>
-            
-            <p className="mt-6 text-center text-sm text-gray-500">
-              Assess your current after sales state
-            </p>
+
+            <div className="space-y-6">
+              {/* Email Success Message */}
+              {emailSent && (
+                <div className="bg-green-50 border border-green-200 rounded-2xl p-6">
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                      <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-green-900">Action Plan Sent! 📧</h3>
+                      <p className="text-green-700">
+                        Your personalized action plan has been sent to your email with a PDF attached.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Primary Action - Email */}
+              {!emailSent && (
+                <div className="bg-purple-50 border border-purple-200 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 bg-purple-500 text-white rounded-xl flex items-center justify-center text-sm font-bold">
+                    1
+                  </div>
+                  <h4 className="text-lg font-semibold text-gray-900">Email me my plan</h4>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">Get the complete report with benchmarks, detailed checklist, and next steps delivered to your inbox.</p>
+                
+                <form onSubmit={handleEmailSubmit} className="space-y-3">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your work email"
+                    required
+                    className="w-full px-4 py-3 border border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || !email.trim()}
+                    className="w-full bg-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Email me my plan'}
+                  </button>
+                  <p className="text-xs text-purple-600 text-center">
+                    No spam • Unsubscribe anytime
+                  </p>
+                </form>
+                </div>
+              )}
+
+              {/* Secondary Action - PDF Download */}
+              <div className="flex items-center justify-between p-4 border border-gray-200 rounded-2xl hover:border-gray-300 transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gray-100 text-gray-600 rounded-xl flex items-center justify-center text-sm font-bold">
+                    2
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900">Download quick summary (PDF)</h4>
+                    <p className="text-sm text-gray-600">Get a basic PDF without providing your email</p>
+                  </div>
+                </div>
+                <button
+                  onClick={handlePrint}
+                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl font-medium hover:border-gray-400 hover:bg-gray-50 transition-colors"
+                >
+                  Download
+                </button>
+              </div>
+
+              {/* Tertiary Action - Walkthrough */}
+              <div className="flex items-center justify-between p-4 border border-purple-200 rounded-2xl hover:border-purple-300 transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-sm font-bold">
+                    3
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900">Book a 15-min walkthrough</h4>
+                    <p className="text-sm text-gray-600">Get personalized guidance on your results</p>
+                  </div>
+                </div>
+                <a
+                  href="https://calendly.com/your-calendly/15min"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2 border border-purple-300 text-purple-700 rounded-xl font-medium hover:border-purple-400 hover:bg-purple-50 transition-colors"
+                >
+                  Book now
+                </a>
+              </div>
+            </div>
           </div>
           </div>
         )}
       </div>
 
-      <style jsx global>{`
+      <style>{`
         @media print {
           a,
           button,

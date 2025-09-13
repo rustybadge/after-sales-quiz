@@ -36,7 +36,7 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
 
           {/* Main Cards */}
           <h3 className="text-2xl font-semibold tracking-wide mb-6" style={{ color: '#4B5563', fontFamily: 'Inter Tight, sans-serif', fontWeight: 500, letterSpacing: '-1px' }}>
-            How the assessment works
+            How the diagnostic works
           </h3>
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {/* Assessment Card */}
