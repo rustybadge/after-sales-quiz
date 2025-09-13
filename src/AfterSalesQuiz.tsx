@@ -264,10 +264,10 @@ const MAINTAIN_CHECKLIST = [
 ];
 
 function persona(score: number) {
-  if (score >= 85) return { name: "Predictor", blurb: "Strong ops; scale predictive + continuous coaching." };
-  if (score >= 70) return { name: "Optimizer", blurb: "Solid foundation; push FTF >85% and kit coverage." };
-  if (score >= 40) return { name: "Stabiliser", blurb: "Basics in place; unlock remote triage + ETA SLAs." };
-  return { name: "Firefighter", blurb: "Living in callbacks; stop the bleeding with triage + kits." };
+  if (score >= 85) return { name: "Predictor", blurb: "Leading edge: predictive operations in place. Focus on scaling continuous coaching and analytics." };
+  if (score >= 70) return { name: "Optimizer", blurb: "Optimising: strong foundation with room to improve. Push first-time-fix above 85% and expand kit coverage." };
+  if (score >= 40) return { name: "Stabiliser", blurb: "Stabilising: basics in place, but gaps remain. Unlock remote triage and enforce ETA discipline to reduce churn." };
+  return { name: "Responder", blurb: "Reactive mode: stuck in callbacks, relying on triage and kits. Focus on building triage discipline + basic playbooks." };
 }
 
 function formatPct(n: number) {
@@ -357,170 +357,345 @@ export default function AfterSalesQuiz() {
   const allAnswered = QUESTIONS.every((q) => typeof answers[q.id] === "number");
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8 print:py-0">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">How good is your After Sales... really?</h1>
-        <p className="mt-2 text-sm text-gray-600">
-          Built by a <span className="italic">Scotsman in Göteborg</span>. We've helped large Swedish OEMs with all things After Sales related. This quiz
-          turns those learnings into a quick, practical check for teams like yours.
-        </p>
-      </header>
-
-      {!submitted && (
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="sm:col-span-2">
-              <label className="text-sm font-medium">Company (optional)</label>
-              <input
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-gray-300 p-3 outline-none focus:ring-2 focus:ring-gray-800"
-                placeholder="e.g., Skrotfrag"
-              />
+    <main className="min-h-screen bg-purple-50">
+      {/* Header */}
+      <div className="bg-white border-b border-purple-200">
+        <div className="max-w-6xl mx-auto px-4 py-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-purple-900">After-Sales Diagnostic</h1>
+              <p className="text-sm text-gray-600 mt-1">
+                Assess your current after sales state
+              </p>
+            </div>
+            <div className="text-right">
+              <div className="text-sm text-gray-500">Progress</div>
+              <div className="text-lg font-semibold text-purple-900">
+                {Object.keys(answers).length} / {QUESTIONS.length}
+              </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          {QUESTIONS.map((q, idx) => (
-            <fieldset key={q.id} className="rounded-2xl border border-gray-200 p-4">
-              <legend className="px-1 text-sm font-semibold text-gray-800">
-                {idx + 1}. {q.text}
-              </legend>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                {q.options.map((opt) => {
-                  const id = `${q.id}-${opt.value}`;
-                  return (
-                    <label
-                      key={id}
-                      htmlFor={id}
-                      className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3 ${
-                        answers[q.id] === opt.value ? "border-gray-900" : "border-gray-300 hover:border-gray-400"
-                      }`}
+      <div className="max-w-6xl mx-auto px-4 py-8">
+
+        {!submitted && (
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Main Quiz Area */}
+            <div className="lg:col-span-2">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Company Input */}
+                <div className="bg-white rounded-3xl border border-purple-200 p-6 shadow-sm">
+                  <label className="block text-sm font-semibold text-purple-900 mb-3">Your Company Name</label>
+                  <input
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    className="w-full rounded-2xl border border-gray-300 p-4 text-lg outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                    placeholder="e.g., Skrotfrag"
+                  />
+                </div>
+
+                {/* Questions */}
+                {QUESTIONS.map((q, idx) => (
+                  <div key={q.id} className="bg-white rounded-3xl border border-purple-200 p-6 shadow-sm">
+                    <div className="flex items-start gap-4 mb-6">
+                      <div className="w-8 h-8 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span className="text-sm font-bold text-purple-600">{idx + 1}</span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-purple-900 mb-2">{q.text}</h3>
+                        <div className="text-xs text-gray-500 uppercase tracking-wide">{labelCat(q.category)}</div>
+                      </div>
+                    </div>
+                    
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {q.options.map((opt) => {
+                        const id = `${q.id}-${opt.value}`;
+                        const isSelected = answers[q.id] === opt.value;
+                        return (
+                          <label
+                            key={id}
+                            htmlFor={id}
+                            className={`flex cursor-pointer items-center gap-4 rounded-2xl border p-4 transition-all ${
+                              isSelected 
+                                ? "border-purple-500 bg-purple-50 shadow-sm" 
+                                : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                            }`}
+                          >
+                            <input
+                              id={id}
+                              type="radio"
+                              name={q.id}
+                              value={opt.value}
+                              checked={isSelected}
+                              onChange={() => handleSelect(q.id, opt.value)}
+                              className="h-5 w-5 text-purple-600 focus:ring-purple-500"
+                            />
+                            <span className="text-sm font-medium text-gray-900">{opt.label}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+
+                {/* Submit Button */}
+                <div className="bg-white rounded-3xl border border-purple-200 p-6 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-500">Takes ~3–4 minutes • Zero fluff</p>
+                      <p className="text-xs text-gray-400 mt-1">All questions answered: {allAnswered ? '✓' : '○'}</p>
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={!allAnswered}
+                      className="bg-purple-600 text-white px-8 py-4 rounded-2xl text-lg font-semibold disabled:cursor-not-allowed disabled:opacity-30 hover:bg-purple-700 transition-colors shadow-lg hover:shadow-xl"
                     >
-                      <input
-                        id={id}
-                        type="radio"
-                        name={q.id}
-                        value={opt.value}
-                        checked={answers[q.id] === opt.value}
-                        onChange={() => handleSelect(q.id, opt.value)}
-                        className="h-4 w-4"
-                      />
-                      <span className="text-sm">{opt.label}</span>
-                    </label>
+                      See my score
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            {/* Sidebar */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-8 space-y-6">
+                {/* Progress Card */}
+                <div className="bg-white rounded-3xl border border-purple-200 p-6 shadow-sm">
+                  <h3 className="text-lg font-semibold text-purple-900 mb-4">Progress</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex justify-between text-sm text-gray-600 mb-2">
+                        <span>Questions completed</span>
+                        <span>{Object.keys(answers).length} / {QUESTIONS.length}</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-3">
+                        <div 
+                          className="bg-purple-500 h-3 rounded-full transition-all duration-300"
+                          style={{ width: `${(Object.keys(answers).length / QUESTIONS.length) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-purple-900">
+                        {Math.round((Object.keys(answers).length / QUESTIONS.length) * 100)}%
+                      </div>
+                      <div className="text-sm text-gray-500">Complete</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Categories Overview */}
+                <div className="bg-white rounded-3xl border border-purple-200 p-6 shadow-sm">
+                  <h3 className="text-lg font-semibold text-purple-900 mb-4">Categories</h3>
+                  <div className="space-y-3">
+                    {Object.entries(byCategory.avg).map(([cat, val]) => {
+                      const categoryQuestions = QUESTIONS.filter(q => q.category === cat);
+                      const answered = categoryQuestions.filter(q => typeof answers[q.id] === 'number').length;
+                      const total = categoryQuestions.length;
+                      const isComplete = answered === total;
+                      
+                      return (
+                        <div key={cat} className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className={`w-3 h-3 rounded-full ${isComplete ? 'bg-purple-500' : 'bg-gray-300'}`}></div>
+                            <span className="text-sm font-medium text-gray-700">{labelCat(cat as Category)}</span>
+                          </div>
+                          <span className="text-xs text-gray-500">{answered}/{total}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Help Card */}
+                <div className="bg-purple-50 rounded-3xl border border-purple-200 p-6">
+                  <h3 className="text-lg font-semibold text-purple-900 mb-2">Need help?</h3>
+                  <p className="text-sm text-purple-700 mb-4">
+                    Answer based on your team's current performance over the last 30 days.
+                  </p>
+                  <a 
+                    href="mailto:hello@humblebee.se" 
+                    className="text-sm text-purple-600 font-medium hover:text-purple-700"
+                  >
+                    Contact support →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {submitted && (
+          <div className="space-y-8">
+            {/* Results Header */}
+            <div className="bg-white rounded-3xl border border-purple-200 p-8 shadow-sm">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 bg-purple-50 text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  Assessment Complete
+                </div>
+                <h2 className="text-4xl font-bold text-gray-900 mb-2">
+                  {company ? `${company}: ` : ""}Your after-sales score is{" "}
+                  <span className="tabular-nums text-purple-600">{formatPct(byCategory.total)}</span>
+                </h2>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  Persona: <span className="font-semibold text-gray-900">{personaInfo.name}</span> — {personaInfo.blurb}
+                </p>
+              </div>
+
+              {/* Score Breakdown */}
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {Object.entries(byCategory.avg).map(([cat, val]) => {
+                  const score = Number.isFinite(val) ? val : 0;
+                  const isStrong = score >= THRESHOLDS[cat as Category];
+                  return (
+                    <div key={cat} className="bg-gray-50 rounded-2xl p-6">
+                      <div className="flex items-center justify-between mb-3">
+                        <p className="text-sm font-semibold text-gray-700">{labelCat(cat as Category)}</p>
+                        <div className={`w-3 h-3 rounded-full ${isStrong ? 'bg-purple-500' : 'bg-purple-400'}`}></div>
+                      </div>
+                      <p className="text-3xl font-bold text-gray-900 mb-3">{formatPct(score)}</p>
+                      <div className="w-full bg-gray-200 rounded-full h-3">
+                        <div
+                          className={`h-3 rounded-full transition-all duration-500 ${
+                            isStrong ? 'bg-purple-500' : 'bg-purple-400'
+                          }`}
+                          style={{ width: `${Math.max(0, Math.min(100, score))}%` }}
+                        />
+                      </div>
+                      <p className="text-xs text-gray-500 mt-2">
+                        {isStrong ? 'Strong performance' : 'Needs improvement'}
+                      </p>
+                    </div>
                   );
                 })}
               </div>
-            </fieldset>
-          ))}
-
-          <div className="flex items-center justify-between">
-            <p className="text-xs text-gray-500">Takes ~3–4 minutes. Zero fluff.</p>
-            <button
-              type="submit"
-              disabled={!allAnswered}
-              className="rounded-2xl bg-black px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-30"
-            >
-              See my score
-            </button>
-          </div>
-        </form>
-      )}
-
-      {submitted && (
-        <section className="space-y-6">
-          <div className="rounded-2xl border border-gray-200 p-6 print:border-0">
-            <h2 className="text-2xl font-semibold">
-              {company ? `${company}: ` : ""}Your after-sales score is{" "}
-              <span className="tabular-nums">{formatPct(byCategory.total)}</span>
-            </h2>
-            <p className="mt-2 text-gray-700">
-              Persona: <span className="font-medium">{personaInfo.name}</span> — {personaInfo.blurb}
-            </p>
-
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {Object.entries(byCategory.avg).map(([cat, val]) => (
-                <div key={cat} className="rounded-xl border border-gray-200 p-4">
-                  <p className="text-xs uppercase text-gray-500">{cat}</p>
-                  <p className="text-lg font-semibold">{Number.isFinite(val) ? formatPct(val) : "—"}</p>
-                  <div className="mt-2 h-2 w-full rounded bg-gray-200">
-                    <div
-                      className="h-2 rounded bg-black"
-                      style={{ width: `${Math.max(0, Math.min(100, val || 0))}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
             </div>
-          </div>
 
-          <div className="rounded-2xl border border-gray-200 p-6 print:border-0">
-            {recommendationState === 'quick-wins' && (
-              <>
-                <h3 className="text-xl font-semibold">Your top 3 quick wins</h3>
-                <p className="mt-1 text-sm text-gray-600">Chosen by your weakest categories.</p>
-                <ul className="mt-4 list-disc space-y-3 pl-6">
-                  {top3Weak.map((cat) => {
-                    const ideas = BASIC_ACTIONS[cat].slice(0, 1); // show 1 primary action per weak cat
-                    return (
-                      <li key={cat}>
-                        <span className="font-semibold">{labelCat(cat)}:</span>{" "}
-                        <span>{ideas[0]}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
-                <details className="mt-3">
-                  <summary className="cursor-pointer text-sm text-gray-600">See more suggested actions</summary>
-                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                    {top3Weak.map((cat) => (
-                      <div key={cat} className="rounded-xl border border-gray-200 p-4">
-                        <p className="mb-2 text-xs uppercase text-gray-500">{labelCat(cat)}</p>
-                        <ul className="list-disc space-y-2 pl-5 text-sm">
-                          {BASIC_ACTIONS[cat].map((action, i) => (
-                            <li key={i}>{action}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+            {/* Recommendations */}
+            <div className="bg-white rounded-3xl border border-purple-200 p-8 shadow-sm">
+              {recommendationState === 'quick-wins' && (
+                <>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 bg-purple-100 rounded-2xl flex items-center justify-center">
+                      <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900">Your top 3 quick wins</h3>
+                      <p className="text-gray-600">Chosen by your weakest categories</p>
+                    </div>
                   </div>
-                </details>
-              </>
-            )}
+                  
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
+                    {top3Weak.map((cat, idx) => {
+                      const ideas = BASIC_ACTIONS[cat].slice(0, 1);
+                      return (
+                        <div key={cat} className="bg-purple-50 rounded-2xl p-6 border border-purple-200">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-8 h-8 bg-purple-500 text-white rounded-xl flex items-center justify-center text-sm font-bold">
+                              {idx + 1}
+                            </div>
+                            <span className="font-semibold text-gray-900">{labelCat(cat)}</span>
+                          </div>
+                          <p className="text-sm text-gray-700">{ideas[0]}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
 
-            {recommendationState === 'next-horizon' && (
-              <>
-                <h3 className="text-xl font-semibold">Next-horizon plays</h3>
-                <p className="mt-1 text-sm text-gray-600">Advanced actions to push strong categories higher.</p>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  {Object.entries(byCategory.avg).map(([cat, score]) => {
-                    if (score >= 95) return null; // Skip categories at 95+
-                    return (
-                      <div key={cat} className="rounded-xl border border-gray-200 p-4">
-                        <p className="mb-2 text-xs uppercase text-gray-500">{labelCat(cat as Category)}</p>
-                        <ul className="list-disc space-y-2 pl-5 text-sm">
-                          {ADVANCED_ACTIONS[cat as Category].slice(0, 2).map((action, i) => (
-                            <li key={i}>{action}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    );
-                  })}
-                </div>
-              </>
-            )}
+                  <details className="group">
+                    <summary className="cursor-pointer w-full bg-purple-50 border border-purple-200 rounded-2xl p-4 hover:bg-purple-100 hover:border-purple-300 transition-all duration-200 flex items-center justify-center gap-3 group-open:bg-purple-100 group-open:border-purple-300">
+                      <span className="text-purple-700 font-semibold text-base">Expand to see detailed recommendations</span>
+                      <svg className="w-5 h-5 text-purple-600 group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </summary>
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                      {top3Weak.map((cat) => (
+                        <div key={cat} className="bg-gray-50 rounded-2xl p-6">
+                          <p className="mb-4 text-sm font-semibold text-gray-700">{labelCat(cat)}</p>
+                          <ul className="space-y-3">
+                            {BASIC_ACTIONS[cat].map((action, i) => (
+                              <li key={i} className="flex items-start gap-3">
+                                <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+                                <span className="text-sm text-gray-700">{action}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </details>
+                </>
+              )}
 
-            {recommendationState === 'maintain' && (
-              <>
-                <h3 className="text-xl font-semibold">Maintain & monitor</h3>
-                <p className="mt-1 text-sm text-gray-600">All categories are strong. Focus on sustaining performance.</p>
-                <ul className="mt-4 list-disc space-y-3 pl-6">
-                  {MAINTAIN_CHECKLIST.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </div>
+              {recommendationState === 'next-horizon' && (
+                <>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 bg-purple-100 rounded-2xl flex items-center justify-center">
+                      <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900">Next-horizon plays</h3>
+                      <p className="text-gray-600">Advanced actions to push strong categories higher</p>
+                    </div>
+                  </div>
+                  
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {Object.entries(byCategory.avg).map(([cat, score]) => {
+                      if (score >= 95) return null;
+                      return (
+                        <div key={cat} className="bg-purple-50 rounded-2xl p-6 border border-purple-200">
+                          <p className="mb-4 text-sm font-semibold text-gray-700">{labelCat(cat as Category)}</p>
+                          <ul className="space-y-3">
+                            {ADVANCED_ACTIONS[cat as Category].slice(0, 2).map((action, i) => (
+                              <li key={i} className="flex items-start gap-3">
+                                <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                                <span className="text-sm text-gray-700">{action}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+
+              {recommendationState === 'maintain' && (
+                <>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 bg-purple-100 rounded-2xl flex items-center justify-center">
+                      <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900">Maintain & monitor</h3>
+                      <p className="text-gray-600">All categories are strong. Focus on sustaining performance</p>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-purple-50 rounded-2xl p-6 border border-purple-200">
+                    <ul className="space-y-4">
+                      {MAINTAIN_CHECKLIST.map((item, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-sm text-gray-700">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
+            </div>
 
           <ResultsCapture 
             company={company}
@@ -531,44 +706,60 @@ export default function AfterSalesQuiz() {
             recommendationState={recommendationState}
           />
 
-          <div className="flex flex-wrap gap-3 print:hidden">
-            <button
-              onClick={handlePrint}
-              className="rounded-2xl border border-gray-300 px-4 py-2 text-sm font-medium hover:border-gray-800"
-            >
-              Download as PDF (print)
-            </button>
-            <a
-              href={`mailto:hello@humblebee.se?subject=After-Sales%20Quiz%20Result%20${encodeURIComponent(
-                company || ""
-              )}&body=${encodeURIComponent(
-                `Hi — here is our quiz result for ${company || "our company"}:\n\nTotal score: ${formatPct(
-                  byCategory.total
-                )}\nPersona: ${personaInfo.name}\n\nCategory scores:\n${Object.entries(byCategory.avg)
-                  .map(([c, v]) => `${labelCat(c as Category)}: ${formatPct(v || 0)}`)
-                  .join("\n")}\n\nTop 3 quick wins:\n${top3Weak
-                  .map((c) => `• ${labelCat(c)} — ${BASIC_ACTIONS[c][0]}`)
-                  .join("\n")}\n\nCould we get the 1-page checklist + blank benchmark?`
-              )}`}
-              className="rounded-2xl bg-black px-4 py-2 text-sm font-semibold text-white"
-            >
-              Email me the 1-page plan
-            </a>
-            <a
-              href="https://calendly.com/your-calendly/15min" // TODO: replace
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-2xl border border-gray-300 px-4 py-2 text-sm font-medium hover:border-gray-800"
-            >
-              Book 15-min Scotsman walkthrough
-            </a>
+          {/* Action Buttons */}
+          <div className="bg-white rounded-3xl border border-purple-200 p-8 shadow-sm">
+            <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">Next Steps</h3>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <button
+                onClick={handlePrint}
+                className="flex items-center justify-center gap-3 rounded-2xl border border-purple-300 px-6 py-4 text-sm font-medium hover:border-purple-800 hover:bg-purple-50 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Download as PDF
+              </button>
+              
+              <a
+                href={`mailto:hello@humblebee.se?subject=After-Sales%20Quiz%20Result%20${encodeURIComponent(
+                  company || ""
+                )}&body=${encodeURIComponent(
+                  `Hi — here is our quiz result for ${company || "our company"}:\n\nTotal score: ${formatPct(
+                    byCategory.total
+                  )}\nPersona: ${personaInfo.name}\n\nCategory scores:\n${Object.entries(byCategory.avg)
+                    .map(([c, v]) => `${labelCat(c as Category)}: ${formatPct(v || 0)}`)
+                    .join("\n")}\n\nTop 3 quick wins:\n${top3Weak
+                    .map((c) => `• ${labelCat(c)} — ${BASIC_ACTIONS[c][0]}`)
+                    .join("\n")}\n\nCould we get the 1-page checklist + blank benchmark?`
+                )}`}
+                className="flex items-center justify-center gap-3 rounded-2xl bg-black px-6 py-4 text-sm font-semibold text-white hover:bg-gray-800 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Email 1-page plan
+              </a>
+              
+              <a
+                href="https://calendly.com/your-calendly/15min"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-center gap-3 rounded-2xl border border-purple-300 px-6 py-4 text-sm font-medium hover:border-purple-800 hover:bg-purple-50 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Book 15-min walkthrough
+              </a>
+            </div>
+            
+            <p className="mt-6 text-center text-sm text-gray-500">
+              Assess your current after sales state
+            </p>
           </div>
-
-          <p className="mt-2 text-xs text-gray-500 print:hidden">
-            Add something in the footer here later.
-          </p>
-        </section>
-      )}
+          </div>
+        )}
+      </div>
 
       <style jsx global>{`
         @media print {
