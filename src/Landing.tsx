@@ -19,7 +19,7 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
               Benchmark Your After Sales in 2 Minutes
             </h1>
             <p className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl text-gray-600 max-w-5xl leading-relaxed sm:leading-tight mb-6 sm:mb-8" style={{ fontFamily: 'Inter Tight, sans-serif', fontWeight: 500, letterSpacing: '-0.5px' }}>
-              Find out where your after sales is strong and where it's costing you uptime, fixes, and revenue. Get instant, tailored recommendations.
+              Find out where your after sales is strong and where it's costing you uptime, fixes, and revenue.
             </p>
             
             {/* Primary CTA */}
