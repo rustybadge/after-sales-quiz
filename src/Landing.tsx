@@ -30,7 +30,6 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
               >
                 Start My Diagnostic
               </button>
-              <p className="text-sm text-gray-500 mt-4">12 questions • 2 minutes • Instant results — no signup required</p>
             </div>
           </div>
 
