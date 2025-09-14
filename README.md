@@ -1,6 +1,6 @@
 # After Sales Quiz
 
-An interactive assessment tool to evaluate your after-sales performance across 6 key categories:
+An interactive assessment tool to evaluate your after sales performance across 6 key categories:
 
 - **First-Time-Fix (FTF)** - 25% weight
 - **Remote Triage** - 20% weight  

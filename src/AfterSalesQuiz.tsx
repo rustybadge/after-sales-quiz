@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { buildPlanPdf } from "./pdf/plan";
 
 /** ---------------------------
- *  AFTER-SALES QUIZ (1 file)
+ *  AFTER SALES QUIZ (1 file)
  *  - No external libs
  *  - Category-weighted scoring
  *  - Persona mapping
@@ -274,7 +274,11 @@ function formatPct(n: number) {
   return `${Math.round(n)}%`;
 }
 
-export default function AfterSalesQuiz() {
+interface AfterSalesQuizProps {
+  onBackToLanding?: () => void;
+}
+
+export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps = {}) {
   const [company, setCompany] = useState("");
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -411,6 +415,20 @@ export default function AfterSalesQuiz() {
     }
   };
 
+  const handleResetQuiz = () => {
+    if (onBackToLanding) {
+      onBackToLanding();
+    } else {
+      // Fallback: reset quiz state if no callback provided
+      setSubmitted(false);
+      setAnswers({});
+      setEmail("");
+      setEmailSent(false);
+      setIsSubmitting(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const allAnswered = QUESTIONS.every((q) => typeof answers[q.id] === "number");
 
   return (
@@ -420,7 +438,12 @@ export default function AfterSalesQuiz() {
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-purple-900">After-Sales Diagnostic</h1>
+              <button 
+                onClick={handleResetQuiz}
+                className="text-2xl font-bold text-purple-900 hover:text-purple-700 transition-colors text-left"
+              >
+                After Sales Diagnostic
+              </button>
               <p className="text-sm text-gray-600 mt-1">
                 Assess your current after sales state
               </p>
@@ -501,7 +524,6 @@ export default function AfterSalesQuiz() {
                 <div className="bg-white rounded-3xl border border-purple-200 p-6 shadow-sm">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-500">Takes ~3–4 minutes • Zero fluff</p>
                       <p className="text-xs text-gray-400 mt-1">All questions answered: {allAnswered ? '✓' : '○'}</p>
                     </div>
                     <button
@@ -569,16 +591,10 @@ export default function AfterSalesQuiz() {
 
                 {/* Help Card */}
                 <div className="bg-purple-50 rounded-3xl border border-purple-200 p-6">
-                  <h3 className="text-lg font-semibold text-purple-900 mb-2">Need help?</h3>
-                  <p className="text-sm text-purple-700 mb-4">
-                    Answer based on your team's current performance over the last 30 days.
+                  <h3 className="text-lg font-semibold text-purple-900 mb-2">How to answer</h3>
+                  <p className="text-sm text-purple-700">
+                    Base your answers on your team's current performance over the last 30 days.
                   </p>
-                  <a 
-                    href="mailto:hello@humblebee.se" 
-                    className="text-sm text-purple-600 font-medium hover:text-purple-700"
-                  >
-                    Contact support →
-                  </a>
                 </div>
               </div>
             </div>
@@ -595,7 +611,7 @@ export default function AfterSalesQuiz() {
                   Assessment Complete
                 </div>
                 <h2 className="text-4xl font-bold text-gray-900 mb-2">
-                  {company ? `${company}: ` : ""}Your after-sales score is{" "}
+                  {company ? `${company}: ` : ""}Your after sales score is{" "}
                   <span className="tabular-nums text-purple-600">{formatPct(byCategory.total)}</span>
                 </h2>
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -809,7 +825,7 @@ export default function AfterSalesQuiz() {
                     {isSubmitting ? 'Sending...' : 'Email me my plan'}
                   </button>
                   <p className="text-xs text-purple-600 text-center">
-                    No spam • Unsubscribe anytime
+                    No spam • You are not subscribing to anything
                   </p>
                 </form>
                 </div>

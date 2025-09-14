@@ -19,16 +19,16 @@ exports.handler = async function(event, context) {
 
     // Send the email
     const { data, error } = await resend.emails.send({
-      from: 'After-Sales Quiz <noreply@yourdomain.com>',
+      from: 'After Sales Quiz <noreply@yourdomain.com>',
       to: [email],
-      subject: 'Your After-Sales Action Plan is Ready',
+      subject: 'Your After Sales Action Plan is Ready',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333;">Your After-Sales Action Plan</h2>
+          <h2 style="color: #333;">Your After Sales Action Plan</h2>
           
           <p>Hi there,</p>
           
-          <p>Thanks for completing our After-Sales Quiz! Here's your personalized action plan based on your results:</p>
+          <p>Thanks for completing our After Sales Quiz! Here's your personalized action plan based on your results:</p>
           
           <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="margin-top: 0;">Quiz Results Summary</h3>

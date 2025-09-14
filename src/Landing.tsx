@@ -8,22 +8,22 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
   return (
     <main className="min-h-screen bg-purple-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-purple-50 to-purple-100 py-20 px-4 sm:px-6 lg:px-8">
+      <div className="bg-gradient-to-br from-purple-50 to-purple-100 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-left mb-16">
+          <div className="text-left mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-              After-Sales Diagnostic
+              After Sales Diagnostic
             </div>
-            <h1 className="text-5xl text-purple-900 mb-6 leading-tight" style={{ fontFamily: 'Inter Tight, sans-serif', fontWeight: 500, letterSpacing: '-1px' }}>
-              Benchmark Your After-Sales in 2 Minutes
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl text-purple-900 mb-4 sm:mb-6 leading-tight" style={{ fontFamily: 'Inter Tight, sans-serif', fontWeight: 500, letterSpacing: '-1px' }}>
+              Benchmark Your After Sales in 2 Minutes
             </h1>
-            <p className="text-5xl text-gray-600 max-w-5xl leading-tight mb-8" style={{ fontFamily: 'Inter Tight, sans-serif', fontWeight: 500, letterSpacing: '-1px' }}>
-              Find out where your after-sales is strong and where it's costing you uptime, fixes, and revenue. Get instant, tailored recommendations.
+            <p className="text-lg sm:text-2xl lg:text-3xl xl:text-4xl text-gray-600 max-w-5xl leading-relaxed sm:leading-tight mb-6 sm:mb-8" style={{ fontFamily: 'Inter Tight, sans-serif', fontWeight: 500, letterSpacing: '-0.5px' }}>
+              Find out where your after sales is strong and where it's costing you uptime, fixes, and revenue. Get instant, tailored recommendations.
             </p>
             
             {/* Primary CTA */}
-            <div className="mb-16">
+            <div className="mb-12 sm:mb-16">
               <button
                 onClick={onStart}
                 className="bg-purple-600 text-white px-12 py-4 rounded-xl text-lg font-semibold hover:bg-purple-700 transition-colors shadow-lg hover:shadow-xl"
@@ -35,12 +35,12 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
           </div>
 
           {/* Main Cards */}
-          <h3 className="text-2xl font-semibold tracking-wide mb-6" style={{ color: '#4B5563', fontFamily: 'Inter Tight, sans-serif', fontWeight: 500, letterSpacing: '-1px' }}>
+          <h3 className="text-xl sm:text-2xl font-semibold tracking-wide mb-4 sm:mb-6" style={{ color: '#4B5563', fontFamily: 'Inter Tight, sans-serif', fontWeight: 500, letterSpacing: '-0.5px' }}>
             How the diagnostic works
           </h3>
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {/* Assessment Card */}
-            <div className="bg-white rounded-3xl border border-purple-200 p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-white rounded-3xl border border-purple-200 p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-start gap-4 mb-6">
                 <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center">
                   <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,9 +48,9 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-purple-900 mb-2">Quick Assessment</h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    Answer 12 questions to pinpoint strengths and gaps across your service performance — from first-time-fix to technician productivity.
+                  <h3 className="text-xl sm:text-2xl font-bold text-purple-900 mb-2">Quick Assessment</h3>
+                  <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+                    Answer 12 questions to pinpoint strengths and gaps across your service performance from first-time-fix to technician productivity.
                   </p>
                 </div>
               </div>
@@ -90,7 +90,7 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
             </div>
 
             {/* Insights Card */}
-            <div className="bg-white rounded-3xl border border-purple-200 p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-white rounded-3xl border border-purple-200 p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-start gap-4 mb-6">
                 <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center">
                   <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,9 +98,9 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-purple-900 mb-2">Smart Insights</h3>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    Get practical, prioritized actions matched to your results — from quick wins to long-term improvements.
+                  <h3 className="text-xl sm:text-2xl font-bold text-purple-900 mb-2">Smart Insights</h3>
+                  <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+                    Get practical, prioritised actions matched to your results from quick wins to long-term improvements.
                   </p>
                 </div>
               </div>

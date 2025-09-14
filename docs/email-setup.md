@@ -1,4 +1,4 @@
-# Email Setup for After-Sales Quiz
+# Email Setup for After Sales Quiz
 
 ## Current Status
 ✅ Form submission working  
@@ -54,11 +54,11 @@ Zapier is the easiest way to get started:
 ## Email Template Example
 
 ```
-Subject: Your After-Sales Action Plan is Ready
+Subject: Your After Sales Action Plan is Ready
 
 Hi there,
 
-Thanks for completing our After-Sales Quiz! Here's your personalized action plan:
+Thanks for completing our After Sales Quiz! Here's your personalized action plan:
 
 Company: [Company Name]
 Overall Score: [Score]%

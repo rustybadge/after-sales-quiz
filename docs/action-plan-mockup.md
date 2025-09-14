@@ -4,7 +4,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    AFTER-SALES QUIZ                    │
+│                    AFTER SALES QUIZ                    │
 │                 DETAILED ACTION PLAN                    │
 │                                                         │
 │  Company: ACME Manufacturing                           │
@@ -188,7 +188,7 @@
 │  │  • Book 15-min consultation: [Calendly Link]   │   │
 │  │  • Email support: hello@humblebee.se            │   │
 │  │  • Re-take quiz in 30 days to measure progress │   │
-│  │  • Join our after-sales community               │   │
+│  │  • Join our after sales community               │   │
 │  └─────────────────────────────────────────────────┘   │
 │                                                         │
 │  NEXT MILESTONE                                        │

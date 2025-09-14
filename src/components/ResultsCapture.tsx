@@ -147,7 +147,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
       </form>
       
       <p className="text-xs text-blue-600 mt-3 text-center">
-        No spam • Unsubscribe anytime • We respect your privacy
+        No spam • You are not subscribing to anything • We respect your privacy
       </p>
     </div>
   );

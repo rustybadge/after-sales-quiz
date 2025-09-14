@@ -1,31 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import AfterSalesQuiz from './AfterSalesQuiz'
 import Landing from './Landing'
 
 function App() {
   const [showQuiz, setShowQuiz] = useState(false);
 
-  useEffect(() => {
-    // Check if URL has ?start=1 parameter OR if we're on a specific path
-    const urlParams = new URLSearchParams(window.location.search);
-    const path = window.location.pathname;
-    
-    if (urlParams.get('start') === '1' || path === '/quiz' || path === '/results') {
-      setShowQuiz(true);
-    }
-  }, []);
-
   const handleStart = () => {
     setShowQuiz(true);
-    // Update URL without page reload
-    window.history.pushState({}, '', '?start=1');
-    // Force a small change to trigger deployment
+  };
+
+  const handleBackToLanding = () => {
+    setShowQuiz(false);
   };
 
   return (
     <div className="App">
       {showQuiz ? (
-        <AfterSalesQuiz />
+        <AfterSalesQuiz onBackToLanding={handleBackToLanding} />
       ) : (
         <Landing onStart={handleStart} />
       )}
