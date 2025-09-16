@@ -244,16 +244,16 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
         {/* Results Header */}
         <div className="mb-12">
           {/* Main Score Section with Green Background */}
-          <div className="bg-green-400 rounded-2xl p-8 mb-8">
+          <div className="bg-green-400 p-16 mb-8">
             <div className="text-center">
-              <div className="text-green-800 text-sm font-medium mb-4">
+              <div className="text-green-800 text-lg font-medium mb-8">
                 Assessment Complete
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-green-800 mb-6" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500 }}>
+              <h1 className="text-4xl md:text-5xl font-bold text-green-800 mb-12" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500 }}>
                 Your after sales score is
               </h1>
-              <div className="inline-block bg-green-800 text-white px-8 py-4 rounded-full">
-                <span className="text-4xl md:text-5xl font-bold">{formatPct(totalScore)}</span>
+              <div className="inline-block bg-green-800 px-12 py-8 rounded-full">
+                <span className="text-6xl md:text-7xl font-bold text-green-400">{formatPct(totalScore)}</span>
               </div>
             </div>
           </div>
