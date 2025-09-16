@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AfterSalesQuiz from './AfterSalesQuiz'
+import QuizFlow from './components/QuizFlow'
 import Landing from './Landing'
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
       {showQuiz ? (
-        <AfterSalesQuiz onBackToLanding={handleBackToLanding} />
+        <QuizFlow onBackToLanding={handleBackToLanding} />
       ) : (
         <Landing onStart={handleStart} />
       )}
