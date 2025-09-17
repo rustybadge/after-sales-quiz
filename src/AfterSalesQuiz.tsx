@@ -664,46 +664,39 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                     </div>
                   </div>
                   
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
+                  <div className="space-y-8">
                     {top3Weak.map((cat, idx) => {
                       const ideas = BASIC_ACTIONS[cat].slice(0, 1);
                       return (
-                        <div key={cat} className="bg-purple-50 rounded-2xl p-6 border border-purple-200">
-                          <div className="flex items-center gap-3 mb-3">
-                            <div className="w-8 h-8 bg-purple-500 text-white rounded-xl flex items-center justify-center text-sm font-bold">
+                        <div key={cat} className="border-b border-gray-200 pb-8 last:border-b-0 last:pb-0">
+                          <div className="text-center mb-6">
+                            <div className="w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                               {idx + 1}
                             </div>
-                            <span className="font-semibold text-gray-900">{labelCat(cat)}</span>
+                            <h4 className="text-xl font-semibold text-gray-900 mb-3">{labelCat(cat)}</h4>
+                            <p className="text-gray-600 text-base max-w-2xl mx-auto">{ideas[0]}</p>
                           </div>
-                          <p className="text-sm text-gray-700">{ideas[0]}</p>
+                          
+                          <details className="group">
+                            <summary className="cursor-pointer text-center text-gray-600 hover:text-gray-800 transition-colors text-base font-medium mb-4">
+                              <span className="group-open:hidden">Expand</span>
+                              <span className="hidden group-open:inline">Hide</span>
+                            </summary>
+                            <div className="mt-6 bg-white border border-gray-200 rounded-xl p-6 max-w-4xl mx-auto">
+                              <ul className="space-y-4">
+                                {BASIC_ACTIONS[cat].map((action, i) => (
+                                  <li key={i} className="flex items-start gap-4">
+                                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span className="text-base text-gray-700">{action}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </details>
                         </div>
                       );
                     })}
                   </div>
-
-                  <details className="group">
-                    <summary className="cursor-pointer w-full bg-purple-50 border border-purple-200 rounded-2xl p-4 hover:bg-purple-100 hover:border-purple-300 transition-all duration-200 flex items-center justify-center gap-3 group-open:bg-purple-100 group-open:border-purple-300">
-                      <span className="text-purple-700 font-semibold text-base">Expand to see detailed recommendations</span>
-                      <svg className="w-5 h-5 text-purple-600 group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </summary>
-                    <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                      {top3Weak.map((cat) => (
-                        <div key={cat} className="bg-gray-50 rounded-2xl p-6">
-                          <p className="mb-4 text-sm font-semibold text-gray-700">{labelCat(cat)}</p>
-                          <ul className="space-y-3">
-                            {BASIC_ACTIONS[cat].map((action, i) => (
-                              <li key={i} className="flex items-start gap-3">
-                                <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                                <span className="text-sm text-gray-700">{action}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </details>
                 </>
               )}
 

@@ -294,7 +294,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
         </div>
 
         {/* Recommendations */}
-        <div className="bg-gray-50 rounded-2xl p-8 mb-12">
+        <div className="bg-gray-50 p-8 mb-12">
           {recommendationState === 'quick-wins' && (
             <>
               <div className="flex items-center gap-3 mb-6">
@@ -309,46 +309,39 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
                 </div>
               </div>
               
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
+              <div className="space-y-8">
                 {top3Weak.map((cat, idx) => {
                   const ideas = BASIC_ACTIONS[cat].slice(0, 1);
                   return (
-                    <div key={cat} className="bg-white rounded-2xl p-6 border border-gray-200">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-8 h-8 bg-green-500 text-white rounded-xl flex items-center justify-center text-sm font-bold">
+                    <div key={cat} className="border-b border-gray-200 pb-8 last:border-b-0 last:pb-0">
+                      <div className="text-center mb-6">
+                        <div className="w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                           {idx + 1}
                         </div>
-                        <span className="font-semibold text-gray-900">{labelCat(cat)}</span>
+                        <h4 className="text-xl font-semibold text-gray-900 mb-3">{labelCat(cat)}</h4>
+                        <p className="text-gray-600 text-base max-w-2xl mx-auto">{ideas[0]}</p>
                       </div>
-                      <p className="text-sm text-gray-700">{ideas[0]}</p>
+                      
+                      <details className="group">
+                        <summary className="cursor-pointer text-center text-gray-600 hover:text-gray-800 transition-colors text-base font-medium mb-4">
+                          <span className="group-open:hidden">Expand</span>
+                          <span className="hidden group-open:inline">Hide</span>
+                        </summary>
+                        <div className="mt-6 bg-white border border-gray-200 rounded-xl p-6 max-w-4xl mx-auto">
+                          <ul className="space-y-4">
+                            {BASIC_ACTIONS[cat].map((action, i) => (
+                              <li key={i} className="flex items-start gap-4">
+                                <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                                <span className="text-base text-gray-700">{action}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </details>
                     </div>
                   );
                 })}
               </div>
-
-              <details className="group">
-                <summary className="cursor-pointer w-full bg-white border border-gray-200 rounded-2xl p-4 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 flex items-center justify-center gap-3 group-open:bg-gray-50 group-open:border-gray-300">
-                  <span className="text-gray-700 font-semibold text-base">Expand to see detailed recommendations</span>
-                  <svg className="w-5 h-5 text-gray-600 group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </summary>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  {top3Weak.map((cat) => (
-                    <div key={cat} className="bg-white rounded-2xl p-6 border border-gray-200">
-                      <p className="mb-4 text-sm font-semibold text-gray-700">{labelCat(cat)}</p>
-                      <ul className="space-y-3">
-                        {BASIC_ACTIONS[cat].map((action, i) => (
-                          <li key={i} className="flex items-start gap-3">
-                            <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span className="text-sm text-gray-700">{action}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </details>
             </>
           )}
 
@@ -417,35 +410,64 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
 
         {/* Email Capture */}
         {!isSubmitted ? (
-          <div className="bg-green-50 border border-green-200 rounded-2xl p-8">
-            <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Get your action plan</h3>
-              <p className="text-gray-600">Enter your email to receive the complete report with benchmarks, detailed checklist, and next steps.</p>
+          <div className="p-8" style={{ backgroundColor: '#F1E3FF' }}>
+            <div className="text-center mb-8">
+              <h3 className="font-bold text-gray-900 mb-4" style={{ fontFamily: 'serif', fontSize: '40px' }}>Get your action plan</h3>
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+                Enter your email to receive the complete report with benchmarks, detailed checklist, and next steps.
+              </p>
             </div>
             
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your work email"
-                required
-                className="w-full px-4 py-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              />
-              <button
-                type="submit"
-                disabled={isSubmitting || !email.trim()}
-                className="w-full bg-green-500 hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-              >
-                {isSubmitting ? 'Sending...' : 'Email me my plan'}
-              </button>
-              <p className="text-xs text-green-600 text-center">
-                No spam • You are not subscribing to anything
+            <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
+              <div className="text-left">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Enter your work email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder=""
+                  required
+                  className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent text-lg"
+                />
+              </div>
+              <div className="flex justify-center">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-black hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-lg transition-colors text-lg"
+                >
+                  {isSubmitting ? 'Sending...' : 'Send me my plan'}
+                </button>
+              </div>
+              <p className="text-sm text-gray-600 text-center">
+                No spam. You are not subscribing to anything.
               </p>
             </form>
+
+            {/* Or Separator */}
+            <div className="relative flex items-center justify-center my-8">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative px-4" style={{ backgroundColor: '#F1E3FF' }}>
+                <span className="text-gray-500 font-medium">Or</span>
+              </div>
+            </div>
+            
+            {/* Download Section - Part of same purple background */}
+            <div className="text-center">
+              <h4 className="text-xl font-bold mb-2" style={{ color: '#254E29' }}>Download quick summary (PDF)</h4>
+              <p className="text-gray-600 mb-6">Get a basic PDF without providing your email</p>
+              <button
+                onClick={handlePrint}
+                className="bg-black hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-lg transition-colors text-lg"
+              >
+                Download
+              </button>
+            </div>
           </div>
         ) : (
-          <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center">
+          <div className="p-8 text-center" style={{ backgroundColor: '#F1E3FF' }}>
             <div className="flex items-center justify-center mb-4">
               <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                 <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -460,49 +482,34 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
           </div>
         )}
 
-        {/* Alternative Actions */}
-        <div className="mt-8 space-y-4">
-          <div className="flex items-center justify-between p-4 border border-gray-200 rounded-2xl hover:border-gray-300 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gray-100 text-gray-600 rounded-xl flex items-center justify-center text-sm font-bold">
-                2
-              </div>
-              <div>
-                <h4 className="font-medium text-gray-900">Download quick summary (PDF)</h4>
-                <p className="text-sm text-gray-600">Get a basic PDF without providing your email</p>
-              </div>
-            </div>
-            <button
-              onClick={handlePrint}
-              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl font-medium hover:border-gray-400 hover:bg-gray-50 transition-colors"
-            >
-              Download
-            </button>
-          </div>
-
-          <div className="flex items-center justify-between p-4 border border-green-200 rounded-2xl hover:border-green-300 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-green-100 text-green-600 rounded-xl flex items-center justify-center text-sm font-bold">
-                3
-              </div>
-              <div>
-                <h4 className="font-medium text-gray-900">Book a 15-min walkthrough</h4>
-                <p className="text-sm text-gray-600">Get personalized guidance on your results</p>
-              </div>
-            </div>
+        {/* Book a 15-min walkthrough */}
+        <div className="mt-8">
+          <div className="p-8 text-center bg-white">
+            <h3 className="font-bold text-gray-900 mb-4" style={{ fontFamily: 'serif', fontSize: '40px' }}>Book a 15-min walkthrough</h3>
+            <p className="text-gray-600 text-lg mb-8">Get personalized guidance on your results</p>
             <a
               href="https://calendly.com/your-calendly/15min"
               target="_blank"
               rel="noreferrer"
-              className="px-4 py-2 border border-green-300 text-green-700 rounded-xl font-medium hover:border-green-400 hover:bg-green-50 transition-colors"
+              className="inline-block text-white font-bold py-4 px-8 rounded-lg transition-colors text-lg"
+              style={{ 
+                backgroundColor: '#79FC86',
+                color: '#000000'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#6BFC73';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = '#79FC86';
+              }}
             >
               Book now
             </a>
           </div>
         </div>
-      </div>
+        </div>
 
-      <style>{`
+        <style>{`
         @media print {
           a,
           button,
