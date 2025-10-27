@@ -89,7 +89,7 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
           {/* Right Column - Image in Grey Box */}
           <div>
             <div className="bg-gray-100 p-8">
-              <img src="/dashboard-preview.png" alt="Temp image" className="w-full" />
+              <img src="/questions.jpeg" alt="After sales assessment" className="w-full" />
             </div>
           </div>
         </div>
@@ -99,7 +99,7 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
           {/* Left Column - Image in Grey Box */}
           <div>
             <div className="bg-gray-100 p-8">
-              <img src="/dashboard-preview.png" alt="Temp image" className="w-full" />
+              <img src="/dimensions.jpeg" alt="Assessment dimensions" className="w-full" />
             </div>
           </div>
           
