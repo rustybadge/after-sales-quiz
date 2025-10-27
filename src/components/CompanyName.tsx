@@ -54,6 +54,11 @@ const CompanyName: React.FC<CompanyNameProps> = ({ company, setCompany, onContin
               Continue to questions
             </button>
           </form>
+
+          {/* Instruction */}
+          <p className="text-gray-600 mt-6 text-lg leading-relaxed">
+            All the following questions should be answered according to your last 30 days performance.
+          </p>
         </div>
       </div>
     </div>

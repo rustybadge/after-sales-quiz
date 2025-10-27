@@ -38,7 +38,7 @@ const WEIGHTS: Record<Category, number> = {
 const QUESTIONS: Question[] = [
   {
     id: "q1",
-    text: "Solved on the first visit (First-Time-Fix, FTF) in the last 30 days?",
+    text: "Let's get started. In the last 30 days how many issues were solved on the first visit (FTF, First-Time-Fix)?",
     category: "FTF",
     options: [
       { label: "≤70%", value: 20 },

@@ -36,15 +36,20 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
         </div>
       </div>
 
-      {/* Preview Image Box - Full Width */}
-      <div className="w-full" style={{ maxWidth: '1280px', margin: '0 auto' }}>
+      {/* Preview Image Box - Full Width - Hidden on mobile */}
+      <div className="hidden md:block w-full px-6" style={{ maxWidth: '1280px', margin: '0 auto -30px auto' }}>
         <div className="bg-gray-100 p-8 flex items-center justify-center" style={{ height: '600px' }}>
-          <img src="/dashboard-preview.png" alt="Diagnostic preview" className="w-full" style={{ maxWidth: '70%', display: 'block' }} />
+          <img 
+            src="/dashboard-preview.png" 
+            alt="Diagnostic preview" 
+            className="w-full" 
+            style={{ maxWidth: '70%', display: 'block' }}
+          />
         </div>
       </div>
 
       {/* Rest of Content */}
-      <div className="mx-auto px-6 py-16" style={{ maxWidth: '1280px' }}>
+      <div className="mx-auto px-6 pt-24 pb-16" style={{ maxWidth: '1280px' }}>
         
         {/* Free After Sales Diagnostics Report */}
         <div className="mb-24" style={{ maxWidth: '853px' }}>
@@ -59,12 +64,12 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
           {/* Left Column - Text */}
           <div>
             <h2 className="text-2xl md:text-3xl mb-6" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500, color: '#111827' }}>Who should take this assessment?</h2>
-            <p className="text-gray-700 mb-6 leading-relaxed" style={{ fontSize: '14px', paddingRight: '2rem' }}>
+            <p className="text-gray-700 mb-6 leading-relaxed md:pr-8" style={{ fontSize: '14px' }}>
               This after sales analysis is mainly for organisations that service or maintain physical equipment, with field or depot work and a parts pipeline.
             </p>
             
             <div className="mb-4">
-              <ul className="space-y-2 text-gray-700" style={{ fontSize: '14px', paddingRight: '2rem' }}>
+              <ul className="space-y-2 text-gray-700 md:pr-8" style={{ fontSize: '14px' }}>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <span>Industrial OEMs (and dealers) in construction, recycling, aggregates/mining, material handling, forestry, HVAC/MEP, packaging and food processing.</span>
@@ -100,8 +105,8 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
           
           {/* Right Column - Text */}
           <div>
-            <h2 className="text-2xl md:text-3xl mb-6" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500, color: '#111827' }}>How is your report calculated?</h2>
-            <div className="max-w-lg">
+            <h2 className="text-2xl md:text-3xl mb-6 md:pl-8" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500, color: '#111827' }}>How is your report calculated?</h2>
+            <div className="max-w-lg md:pl-8">
               <p className="text-gray-700 mb-4 leading-relaxed" style={{ fontSize: '14px' }}>
                 The assessment evaluates your after-sales performance across six core dimensions: First-Time-Fix rates, Remote Triage capabilities, Parts availability, ETA management, Playbook maturity, and Predictive maintenance readiness.
               </p>
