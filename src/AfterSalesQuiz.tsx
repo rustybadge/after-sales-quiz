@@ -435,7 +435,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
     <main className="min-h-screen bg-purple-50">
       {/* Header */}
       <div className="bg-white border-b border-purple-200">
-        <div className="max-w-6xl mx-auto px-4 py-6">
+        <div className="mx-auto px-4 py-6" style={{ maxWidth: '1280px' }}>
           <div className="flex items-center justify-between">
             <div>
               <button 
@@ -458,7 +458,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="mx-auto px-4 py-8" style={{ maxWidth: '1280px' }}>
 
         {!submitted && (
           <div className="grid lg:grid-cols-3 gap-8">
@@ -610,12 +610,12 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                   <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                   Assessment Complete
                 </div>
-                <h2 className="text-4xl font-bold text-gray-900 mb-2">
+                <h2 className="text-4xl font-bold mb-2" style={{ color: '#111827' }}>
                   {company ? `${company}: ` : ""}Your after sales score is{" "}
                   <span className="tabular-nums text-purple-600">{formatPct(byCategory.total)}</span>
                 </h2>
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Persona: <span className="font-semibold text-gray-900">{personaInfo.name}</span> — {personaInfo.blurb}
+                  Persona: <span className="font-semibold" style={{ color: '#111827' }}>{personaInfo.name}</span> — {personaInfo.blurb}
                 </p>
               </div>
 
@@ -630,7 +630,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                         <p className="text-sm font-semibold text-gray-700">{labelCat(cat as Category)}</p>
                         <div className={`w-3 h-3 rounded-full ${isStrong ? 'bg-purple-500' : 'bg-purple-400'}`}></div>
                       </div>
-                      <p className="text-3xl font-bold text-gray-900 mb-3">{formatPct(score)}</p>
+                      <p className="text-3xl font-bold mb-3" style={{ color: '#111827' }}>{formatPct(score)}</p>
                       <div className="w-full bg-gray-200 rounded-full h-3">
                         <div
                           className={`h-3 rounded-full transition-all duration-500 ${
@@ -659,7 +659,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-gray-900">Your top 3 quick wins</h3>
+                      <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Your top 3 quick wins</h3>
                       <p className="text-gray-600">Chosen by your weakest categories</p>
                     </div>
                   </div>
@@ -673,7 +673,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                             <div className="w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                               {idx + 1}
                             </div>
-                            <h4 className="text-xl font-semibold text-gray-900 mb-3">{labelCat(cat)}</h4>
+                            <h4 className="text-xl font-semibold mb-3" style={{ color: '#111827' }}>{labelCat(cat)}</h4>
                             <p className="text-gray-600 text-base max-w-2xl mx-auto">{ideas[0]}</p>
                           </div>
                           
@@ -709,7 +709,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-gray-900">Next-horizon plays</h3>
+                      <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Next-horizon plays</h3>
                       <p className="text-gray-600">Advanced actions to push strong categories higher</p>
                     </div>
                   </div>
@@ -744,7 +744,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-gray-900">Maintain & monitor</h3>
+                      <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Maintain & monitor</h3>
                       <p className="text-gray-600">All categories are strong. Focus on sustaining performance</p>
                     </div>
                   </div>
@@ -766,7 +766,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
           {/* Unified CTA Block */}
           <div className="bg-white rounded-3xl border border-purple-200 p-8 shadow-sm">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Get your action plan</h3>
+              <h3 className="text-2xl font-bold mb-2" style={{ color: '#111827' }}>Get your action plan</h3>
               <p className="text-gray-600">Choose how you'd like to receive your personalized results and recommendations</p>
             </div>
 
@@ -797,7 +797,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                   <div className="w-8 h-8 bg-purple-500 text-white rounded-xl flex items-center justify-center text-sm font-bold">
                     1
                   </div>
-                  <h4 className="text-lg font-semibold text-gray-900">Email me my plan</h4>
+                  <h4 className="text-lg font-semibold" style={{ color: '#111827' }}>Email me my plan</h4>
                 </div>
                 <p className="text-gray-600 text-sm mb-4">Get the complete report with benchmarks, detailed checklist, and next steps delivered to your inbox.</p>
                 
@@ -831,7 +831,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                     2
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900">Download quick summary (PDF)</h4>
+                    <h4 className="font-medium" style={{ color: '#111827' }}>Download quick summary (PDF)</h4>
                     <p className="text-sm text-gray-600">Get a basic PDF without providing your email</p>
                   </div>
                 </div>
@@ -850,7 +850,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                     3
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900">Book a 15-min walkthrough</h4>
+                    <h4 className="font-medium" style={{ color: '#111827' }}>Book a 15-min walkthrough</h4>
                     <p className="text-sm text-gray-600">Get personalized guidance on your results</p>
                   </div>
                 </div>

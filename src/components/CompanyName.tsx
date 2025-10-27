@@ -31,7 +31,7 @@ const CompanyName: React.FC<CompanyNameProps> = ({ company, setCompany, onContin
       <div className="flex-1 flex items-center justify-center px-6">
         <div className="w-full max-w-md text-center">
           {/* Question */}
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold mb-8" style={{ color: '#111827' }}>
             What's your company name?
           </h1>
 

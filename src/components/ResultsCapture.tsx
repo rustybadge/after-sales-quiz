@@ -232,7 +232,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
             </button>
             <div className="text-right">
               <div className="text-sm text-gray-500">Assessment Complete</div>
-              <div className="text-lg font-semibold text-gray-900">
+              <div className="text-lg font-semibold" style={{ color: '#111827' }}>
                 {company ? company : "Your Results"}
               </div>
             </div>
@@ -261,7 +261,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
           {/* Persona Section */}
           <div className="text-center">
             <div className="text-gray-500 text-sm mb-2">Persona</div>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500 }}>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500, color: '#111827' }}>
               {personaInfo.name}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -279,7 +279,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
                 <div className="text-xs uppercase tracking-wide text-gray-600 mb-2 font-medium">
                   {labelCat(cat as Category).toUpperCase()}
                 </div>
-                <div className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                <div className="text-2xl md:text-3xl font-bold mb-3" style={{ color: '#111827' }}>
                   {formatPct(score)}
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
@@ -304,7 +304,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900">Your top 3 quick wins</h3>
+                  <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Your top 3 quick wins</h3>
                   <p className="text-gray-600">Chosen by your weakest categories</p>
                 </div>
               </div>
@@ -318,7 +318,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
                         <div className="w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                           {idx + 1}
                         </div>
-                        <h4 className="text-xl font-semibold text-gray-900 mb-3">{labelCat(cat)}</h4>
+                        <h4 className="text-xl font-semibold mb-3" style={{ color: '#111827' }}>{labelCat(cat)}</h4>
                         <p className="text-gray-600 text-base max-w-2xl mx-auto">{ideas[0]}</p>
                       </div>
                       
@@ -354,7 +354,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900">Next-horizon plays</h3>
+                  <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Next-horizon plays</h3>
                   <p className="text-gray-600">Advanced actions to push strong categories higher</p>
                 </div>
               </div>
@@ -389,7 +389,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900">Maintain & monitor</h3>
+                  <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Maintain & monitor</h3>
                   <p className="text-gray-600">All categories are strong. Focus on sustaining performance</p>
                 </div>
               </div>
@@ -412,7 +412,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
         {!isSubmitted ? (
           <div className="p-8" style={{ backgroundColor: '#F1E3FF' }}>
             <div className="text-center mb-8">
-              <h3 className="font-bold text-gray-900 mb-4" style={{ fontFamily: 'serif', fontSize: '40px' }}>Get your action plan</h3>
+              <h3 className="font-bold mb-4" style={{ fontFamily: 'serif', fontSize: '40px', color: '#111827' }}>Get your action plan</h3>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
                 Enter your email to receive the complete report with benchmarks, detailed checklist, and next steps.
               </p>
@@ -485,7 +485,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
         {/* Book a 15-min walkthrough */}
         <div className="mt-8">
           <div className="p-8 text-center bg-white">
-            <h3 className="font-bold text-gray-900 mb-4" style={{ fontFamily: 'serif', fontSize: '40px' }}>Book a 15-min walkthrough</h3>
+            <h3 className="font-bold mb-4" style={{ fontFamily: 'serif', fontSize: '40px', color: '#111827' }}>Book a 15-min walkthrough</h3>
             <p className="text-gray-600 text-lg mb-8">Get personalized guidance on your results</p>
             <a
               href="https://calendly.com/your-calendly/15min"

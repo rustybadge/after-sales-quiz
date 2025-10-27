@@ -58,7 +58,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
       <div className="flex-1 flex items-center justify-center px-6 py-8">
         <div className="w-full max-w-2xl">
           {/* Question */}
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-12 text-center leading-relaxed">
+          <h1 className="text-2xl md:text-3xl font-bold mb-12 text-center leading-relaxed" style={{ color: '#111827' }}>
             {question}
           </h1>
 
