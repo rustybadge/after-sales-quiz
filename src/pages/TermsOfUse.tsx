@@ -3,7 +3,7 @@ import PolicyPage from '../components/PolicyPage';
 
 const TermsOfUse: React.FC = () => {
   return (
-    <PolicyPage title="Terms of Use" lastUpdated="November 8, 2025">
+    <PolicyPage title="Terms of Use – After Sales Quiz" lastUpdated="November 10, 2025">
       <section className="mb-8">
         <h2 
           className="text-2xl mb-4" 
@@ -14,10 +14,10 @@ const TermsOfUse: React.FC = () => {
             color: '#111827' 
           }}
         >
-          Acceptance of Terms
+          1. Acceptance of terms
         </h2>
         <p className="text-gray-700 leading-relaxed mb-4">
-          By accessing and using the Humblebee After Sales Diagnostic tool, you accept and agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use our service.
+          By using this site and submitting your email address, you agree to these Terms and our Privacy Policy. If you do not agree, please do not use the site.
         </p>
       </section>
 
@@ -31,33 +31,10 @@ const TermsOfUse: React.FC = () => {
             color: '#111827' 
           }}
         >
-          Use of Service
+          2. Purpose of service
         </h2>
         <p className="text-gray-700 leading-relaxed mb-4">
-          The After Sales Diagnostic tool is provided for informational and assessment purposes only. You agree to:
-        </p>
-        <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
-          <li>Provide accurate and truthful information when completing the assessment</li>
-          <li>Use the tool only for lawful purposes</li>
-          <li>Not attempt to interfere with or disrupt the service</li>
-          <li>Not use automated means to access or interact with the service</li>
-        </ul>
-      </section>
-
-      <section className="mb-8">
-        <h2 
-          className="text-2xl mb-4" 
-          style={{ 
-            fontFamily: 'Inter, sans-serif', 
-            fontWeight: 600, 
-            letterSpacing: '-0.03em', 
-            color: '#111827' 
-          }}
-        >
-          Intellectual Property
-        </h2>
-        <p className="text-gray-700 leading-relaxed mb-4">
-          All content, features, and functionality of the diagnostic tool, including but not limited to text, graphics, logos, and software, are owned by Humblebee and are protected by international copyright, trademark, and other intellectual property laws.
+          After Sales Quiz provides a free self-assessment tool to help users benchmark their after-sales processes. It is for informational purposes only and is not a professional consulting service.
         </p>
       </section>
 
@@ -71,13 +48,10 @@ const TermsOfUse: React.FC = () => {
             color: '#111827' 
           }}
         >
-          Disclaimer of Warranties
+          3. Intellectual property
         </h2>
         <p className="text-gray-700 leading-relaxed mb-4">
-          The diagnostic tool and results are provided "as is" without warranties of any kind, either express or implied. Humblebee does not guarantee the accuracy, completeness, or usefulness of any information provided through the tool.
-        </p>
-        <p className="text-gray-700 leading-relaxed mb-4">
-          The assessment results are meant to be indicative and should not be considered professional advice. We recommend consulting with qualified professionals before making business decisions based on the results.
+          All text, graphics, logos, and software are the property of Humblebee AB and may not be reproduced without permission.
         </p>
       </section>
 
@@ -91,10 +65,10 @@ const TermsOfUse: React.FC = () => {
             color: '#111827' 
           }}
         >
-          Limitation of Liability
+          4. User responsibility
         </h2>
         <p className="text-gray-700 leading-relaxed mb-4">
-          Humblebee shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the diagnostic tool.
+          You agree to provide accurate information and not to misuse the site (e.g., introduce malware, attempt unauthorised access, or scrape data).
         </p>
       </section>
 
@@ -108,10 +82,10 @@ const TermsOfUse: React.FC = () => {
             color: '#111827' 
           }}
         >
-          Changes to Terms
+          5. Disclaimer of warranties
         </h2>
         <p className="text-gray-700 leading-relaxed mb-4">
-          We reserve the right to modify these Terms of Use at any time. Changes will be effective immediately upon posting. Your continued use of the service after changes constitutes acceptance of the modified terms.
+          The After Sales Quiz is provided "as is". We make no guarantees of accuracy or fitness for a particular purpose. Use is at your own risk.
         </p>
       </section>
 
@@ -125,14 +99,61 @@ const TermsOfUse: React.FC = () => {
             color: '#111827' 
           }}
         >
-          Contact Information
+          6. Limitation of liability
         </h2>
         <p className="text-gray-700 leading-relaxed mb-4">
-          For questions about these Terms of Use, please contact us at:
+          To the maximum extent permitted by law, Humblebee AB and its employees shall not be liable for any indirect, incidental, or consequential damages arising from your use of the site or from unauthorised access to stored data.
         </p>
-        <p className="text-gray-700 leading-relaxed">
-          Email: <a href="mailto:hello@humblebee.se" className="text-green-600 hover:text-green-700 underline">hello@humblebee.se</a><br />
-          Website: <a href="https://www.humblebee.se" className="text-green-600 hover:text-green-700 underline" target="_blank" rel="noopener noreferrer">www.humblebee.se</a>
+      </section>
+
+      <section className="mb-8">
+        <h2 
+          className="text-2xl mb-4" 
+          style={{ 
+            fontFamily: 'Inter, sans-serif', 
+            fontWeight: 600, 
+            letterSpacing: '-0.03em', 
+            color: '#111827' 
+          }}
+        >
+          7. External links
+        </h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          This site may contain links to third-party websites. We are not responsible for their content or privacy practices.
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 
+          className="text-2xl mb-4" 
+          style={{ 
+            fontFamily: 'Inter, sans-serif', 
+            fontWeight: 600, 
+            letterSpacing: '-0.03em', 
+            color: '#111827' 
+          }}
+        >
+          8. Changes to terms
+        </h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          We may revise these terms from time to time. Continued use after changes indicates acceptance of the updated terms.
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 
+          className="text-2xl mb-4" 
+          style={{ 
+            fontFamily: 'Inter, sans-serif', 
+            fontWeight: 600, 
+            letterSpacing: '-0.03em', 
+            color: '#111827' 
+          }}
+        >
+          9. Governing law
+        </h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          These Terms are governed by the laws of Sweden and any dispute shall be handled by Swedish courts.
         </p>
       </section>
     </PolicyPage>
