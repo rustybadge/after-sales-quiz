@@ -1,7 +1,6 @@
 import jsPDF from 'jspdf';
 
 interface QuizResults {
-  company?: string;
   totalScore: number;
   personaName: string;
   categoryScores: {
@@ -34,7 +33,7 @@ export function buildPlanPdf(results: QuizResults): Uint8Array {
   // Add Humblebee logo - temporarily removed to fix PDF generation
   // TODO: Add logo back with a simpler method
   
-  // Company name (centered in header)
+  // Humblebee branding (centered in header)
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(18);
   doc.setFont('helvetica', 'bold');
@@ -45,18 +44,17 @@ export function buildPlanPdf(results: QuizResults): Uint8Array {
   doc.setFont('helvetica', 'normal');
   doc.text('After Sales Performance Action Plan', 20, 40);
   
-  // Company info
+  // Assessment info
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
-  doc.text(`Company: ${results.company || 'Not specified'}`, 20, 55);
-  doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 62);
-  doc.text(`Overall Score: ${results.totalScore}%`, 20, 69);
-  doc.text(`Persona: ${results.personaName}`, 20, 76);
+  doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 55);
+  doc.text(`Overall Score: ${results.totalScore}%`, 20, 62);
+  doc.text(`Persona: ${results.personaName}`, 20, 69);
   
   // Score breakdown
   doc.setFontSize(14);
   doc.setFont('helvetica', 'bold');
-  doc.text('Category Scores', 20, 90);
+  doc.text('Category Scores', 20, 83);
   
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
@@ -69,7 +67,7 @@ export function buildPlanPdf(results: QuizResults): Uint8Array {
     { name: 'Predictive Monitoring', score: results.categoryScores.Predictive, weight: '10%' }
   ];
   
-  let yPos = 100;
+  let yPos = 93;
   categories.forEach(cat => {
     const scoreColor = cat.score >= 80 ? [0, 128, 0] : cat.score >= 60 ? [255, 165, 0] : [255, 0, 0];
     doc.setTextColor(scoreColor[0], scoreColor[1], scoreColor[2]);

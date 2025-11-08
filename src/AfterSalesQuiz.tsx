@@ -279,7 +279,6 @@ interface AfterSalesQuizProps {
 }
 
 export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps = {}) {
-  const [company, setCompany] = useState("");
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
@@ -370,7 +369,6 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
     try {
       // Generate the PDF
       const pdfData = buildPlanPdf({
-        company,
         totalScore: byCategory.total,
         personaName: personaInfo.name,
         categoryScores: byCategory.avg,
@@ -393,7 +391,6 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
         },
         body: JSON.stringify({
           email,
-          company,
           totalScore: byCategory.total,
           personaName: personaInfo.name,
           pdfData: pdfBase64
@@ -465,17 +462,6 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
             {/* Main Quiz Area */}
             <div className="lg:col-span-2">
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Company Input */}
-                <div className="bg-white rounded-3xl border border-purple-200 p-6 shadow-sm">
-                  <label className="block text-sm font-semibold text-purple-900 mb-3">Your Company Name</label>
-                  <input
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    className="w-full rounded-2xl border border-gray-300 p-4 text-lg outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                    placeholder="e.g., Skrotfrag"
-                  />
-                </div>
-
                 {/* Questions */}
                 {QUESTIONS.map((q, idx) => (
                   <div key={q.id} className="bg-white rounded-3xl border border-purple-200 p-6 shadow-sm">
@@ -611,7 +597,7 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                   Assessment Complete
                 </div>
                 <h2 className="text-4xl font-bold mb-2" style={{ color: '#111827' }}>
-                  {company ? `${company}: ` : ""}Your after sales score is{" "}
+                  Your after sales score is{" "}
                   <span className="tabular-nums text-purple-600">{formatPct(byCategory.total)}</span>
                 </h2>
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -818,40 +804,21 @@ export default function AfterSalesQuiz({ onBackToLanding }: AfterSalesQuizProps 
                     {isSubmitting ? 'Sending...' : 'Email me my plan'}
                   </button>
                   <p className="text-xs text-purple-600 text-center">
-                    No spam • You are not subscribing to anything
+                    By submitting your email address, you agree to our <a href="/privacy-policy" className="underline hover:text-purple-800">Privacy Policy</a>.
                   </p>
                 </form>
                 </div>
               )}
 
-              {/* Secondary Action - PDF Download */}
-              <div className="flex items-center justify-between p-4 border border-gray-200 rounded-2xl hover:border-gray-300 transition-colors">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gray-100 text-gray-600 rounded-xl flex items-center justify-center text-sm font-bold">
-                    2
-                  </div>
-                  <div>
-                    <h4 className="font-medium" style={{ color: '#111827' }}>Download quick summary (PDF)</h4>
-                    <p className="text-sm text-gray-600">Get a basic PDF without providing your email</p>
-                  </div>
-                </div>
-                <button
-                  onClick={handlePrint}
-                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl font-medium hover:border-gray-400 hover:bg-gray-50 transition-colors"
-                >
-                  Download
-                </button>
-              </div>
-
-              {/* Tertiary Action - Walkthrough */}
+              {/* Secondary Action - Walkthrough */}
               <div className="flex items-center justify-between p-4 border border-purple-200 rounded-2xl hover:border-purple-300 transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-sm font-bold">
-                    3
+                    2
                   </div>
                   <div>
-                    <h4 className="font-medium" style={{ color: '#111827' }}>Book a 15-min walkthrough</h4>
-                    <p className="text-sm text-gray-600">Get personalized guidance on your results</p>
+                    <h4 className="font-medium" style={{ color: '#111827' }}>Book a consultancy</h4>
+                    <p className="text-sm text-gray-600">Get a slot with one of our experts and talk about the improvements that can be made to your after sales processes.</p>
                   </div>
                 </div>
                 <a

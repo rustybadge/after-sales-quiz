@@ -4,7 +4,6 @@ import { buildPlanPdf } from '../pdf/plan';
 type Category = "FTF" | "RemoteTriage" | "Parts" | "ETA" | "Playbooks" | "Predictive";
 
 interface ResultsCaptureProps {
-  company?: string;
   totalScore: number;
   categoryScores: Record<Category, number>;
   onBackToLanding: () => void;
@@ -122,7 +121,6 @@ function labelCat(c: Category) {
 }
 
 const ResultsCapture: React.FC<ResultsCaptureProps> = ({ 
-  company, 
   totalScore, 
   categoryScores,
   onBackToLanding
@@ -169,7 +167,6 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
     try {
       // Generate the PDF
       const pdfData = buildPlanPdf({
-        company,
         totalScore,
         personaName: personaInfo.name,
         categoryScores,
@@ -192,7 +189,6 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
         },
         body: JSON.stringify({
           email,
-          company,
           totalScore,
           personaName: personaInfo.name,
           pdfData: pdfBase64
@@ -232,9 +228,6 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
             </button>
             <div className="text-right">
               <div className="text-sm text-gray-500">Assessment Complete</div>
-              <div className="text-lg font-semibold" style={{ color: '#111827' }}>
-                {company ? company : "Your Results"}
-              </div>
             </div>
           </div>
         </div>
@@ -440,31 +433,9 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
                 </button>
               </div>
               <p className="text-sm text-gray-600 text-center">
-                No spam. You are not subscribing to anything.
+                By submitting your email address, you agree to our <a href="/privacy-policy" className="underline hover:text-gray-900">Privacy Policy</a>.
               </p>
             </form>
-
-            {/* Or Separator */}
-            <div className="relative flex items-center justify-center my-8">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative px-4" style={{ backgroundColor: '#F1E3FF' }}>
-                <span className="text-gray-500 font-medium">Or</span>
-              </div>
-            </div>
-            
-            {/* Download Section - Part of same purple background */}
-            <div className="text-center">
-              <h4 className="text-xl font-bold mb-2" style={{ color: '#254E29' }}>Download quick summary (PDF)</h4>
-              <p className="text-gray-600 mb-6">Get a basic PDF without providing your email</p>
-              <button
-                onClick={handlePrint}
-                className="bg-black hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-lg transition-colors text-lg"
-              >
-                Download
-              </button>
-            </div>
           </div>
         ) : (
           <div className="p-8 text-center" style={{ backgroundColor: '#F1E3FF' }}>
@@ -482,11 +453,11 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
           </div>
         )}
 
-        {/* Book a 15-min walkthrough */}
+        {/* Book a consultancy */}
         <div className="mt-8">
           <div className="p-8 text-center bg-white">
-            <h3 className="font-bold mb-4" style={{ fontFamily: 'serif', fontSize: '40px', color: '#111827' }}>Book a 15-min walkthrough</h3>
-            <p className="text-gray-600 text-lg mb-8">Get personalized guidance on your results</p>
+            <h3 className="font-bold mb-4" style={{ fontFamily: 'serif', fontSize: '40px', color: '#111827' }}>Book a consultancy</h3>
+            <p className="text-gray-600 text-lg mb-8">Get a slot with one of our experts and talk about the improvements that can be made to your after sales processes.</p>
             <a
               href="https://calendly.com/your-calendly/15min"
               target="_blank"

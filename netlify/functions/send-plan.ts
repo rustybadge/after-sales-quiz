@@ -16,10 +16,10 @@ export const handler = async (event: any) => {
     const body = JSON.parse(event.body);
     console.log('Received body:', JSON.stringify(body, null, 2));
     
-    const { email, company, totalScore, personaName, pdfData } = body;
+    const { email, totalScore, personaName, pdfData } = body;
 
     // Log what we received
-    console.log('Extracted fields:', { email, company, totalScore, personaName, pdfDataLength: pdfData ? pdfData.length : 'undefined' });
+    console.log('Extracted fields:', { email, totalScore, personaName, pdfDataLength: pdfData ? pdfData.length : 'undefined' });
 
     if (!email) {
       return {
@@ -61,7 +61,6 @@ export const handler = async (event: any) => {
           
           <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="margin-top: 0;">Quiz Results Summary</h3>
-            <p><strong>Company:</strong> ${company || 'Not specified'}</p>
             <p><strong>Overall Score:</strong> ${totalScore}%</p>
             <p><strong>Persona:</strong> ${personaName}</p>
           </div>
@@ -102,7 +101,7 @@ export const handler = async (event: any) => {
       `,
       attachments: [
         {
-          filename: `humblebee-action-plan-${company || 'company'}.pdf`,
+          filename: 'humblebee-action-plan.pdf',
           content: pdfBuffer
         }
       ]

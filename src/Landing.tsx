@@ -17,7 +17,7 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
           </div>
           
           {/* Main Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500, color: '#111827' }}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, letterSpacing: '-0.03em', color: '#111827' }}>
             Benchmark Your After Sales in 2 Minutes.
           </h1>
           
@@ -29,7 +29,8 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
           {/* Primary CTA Button */}
           <button
             onClick={onStart}
-            className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors shadow-lg hover:shadow-xl"
+            className="bg-green-500 hover:bg-green-600 px-8 py-4 rounded-lg text-lg font-semibold transition-colors shadow-lg hover:shadow-xl"
+            style={{ color: '#111827' }}
           >
             Start your assessment
           </button>
@@ -53,7 +54,7 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
         
         {/* Free After Sales Diagnostics Report */}
         <div className="mb-24" style={{ maxWidth: '853px' }}>
-          <h2 className="text-3xl md:text-4xl mb-4" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500, color: '#111827' }}>Free After Sales Diagnostics Report</h2>
+          <h2 className="text-3xl md:text-4xl mb-4" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, letterSpacing: '-0.03em', color: '#111827' }}>Free After Sales Diagnostics Report</h2>
           <p className="text-lg text-gray-700 leading-relaxed">
             This is a free diagnostics tool to measure how effective your after sales processes are. It's only 12 questions and then you receive your diagnostics report.
           </p>
@@ -63,7 +64,7 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
         <div className="grid md:grid-cols-2 gap-12 mb-24 items-center">
           {/* Left Column - Text */}
           <div>
-            <h2 className="text-2xl md:text-3xl mb-6" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500, color: '#111827' }}>Who should take this assessment?</h2>
+            <h2 className="text-2xl md:text-3xl mb-6" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, letterSpacing: '-0.03em', color: '#111827' }}>Who should take this assessment?</h2>
             <p className="text-gray-700 mb-6 leading-relaxed md:pr-8" style={{ fontSize: '14px' }}>
               This after sales analysis is mainly for organisations that service or maintain physical equipment, with field or depot work and a parts pipeline.
             </p>
@@ -105,7 +106,7 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
           
           {/* Right Column - Text */}
           <div>
-            <h2 className="text-2xl md:text-3xl mb-6 md:pl-8" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500, color: '#111827' }}>How is your report calculated?</h2>
+            <h2 className="text-2xl md:text-3xl mb-6 md:pl-8" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, letterSpacing: '-0.03em', color: '#111827' }}>How is your report calculated?</h2>
             <div className="max-w-lg md:pl-8">
               <p className="text-gray-700 mb-4 leading-relaxed" style={{ fontSize: '14px' }}>
                 The assessment evaluates your after-sales performance across six core dimensions: First-Time-Fix rates, Remote Triage capabilities, Parts availability, ETA management, Playbook maturity, and Predictive maintenance readiness.
@@ -121,7 +122,8 @@ const Landing: React.FC<LandingProps> = ({ onStart }) => {
         <div className="text-center py-16">
           <button
             onClick={onStart}
-            className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors shadow-lg hover:shadow-xl"
+            className="bg-green-500 hover:bg-green-600 px-8 py-4 rounded-lg text-lg font-semibold transition-colors shadow-lg hover:shadow-xl"
+            style={{ color: '#111827' }}
           >
             Start your assessment
           </button>

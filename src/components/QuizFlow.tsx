@@ -204,7 +204,6 @@ type QuizStep = 'company' | 'questions' | 'results';
 
 const QuizFlow: React.FC<QuizFlowProps> = ({ onBackToLanding }) => {
   const [step, setStep] = useState<QuizStep>('company');
-  const [company, setCompany] = useState('');
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
@@ -243,9 +242,7 @@ const QuizFlow: React.FC<QuizFlowProps> = ({ onBackToLanding }) => {
   }, [answers]);
 
   const handleCompanyContinue = () => {
-    if (company.trim()) {
-      setStep('questions');
-    }
+    setStep('questions');
   };
 
   const handleQuestionAnswer = (value: number) => {
@@ -261,6 +258,7 @@ const QuizFlow: React.FC<QuizFlowProps> = ({ onBackToLanding }) => {
     } else {
       // All questions answered, show results
       setStep('results');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -280,8 +278,6 @@ const QuizFlow: React.FC<QuizFlowProps> = ({ onBackToLanding }) => {
   if (step === 'company') {
     return (
       <CompanyName
-        company={company}
-        setCompany={setCompany}
         onContinue={handleCompanyContinue}
         onExit={handleExit}
       />
@@ -308,7 +304,6 @@ const QuizFlow: React.FC<QuizFlowProps> = ({ onBackToLanding }) => {
   if (step === 'results') {
     return (
       <ResultsCapture
-        company={company}
         totalScore={byCategory.total}
         categoryScores={byCategory.avg}
         onBackToLanding={onBackToLanding}
