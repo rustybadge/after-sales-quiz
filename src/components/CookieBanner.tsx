@@ -44,7 +44,8 @@ const CookieBanner: React.FC = () => {
               We use cookies
             </h3>
             <p className="text-sm text-gray-600 leading-relaxed">
-              We use essential cookies to make our site work and analytics cookies to understand how you use it.{' '}
+              We use cookies to make our site work and analytics cookies to understand how you use it. 
+              By continuing to use this site or clicking "Accept all cookies", you agree to our use of cookies.{' '}
               <a href="/cookie-policy" className="underline hover:text-gray-900">Learn more</a>
             </p>
           </div>
