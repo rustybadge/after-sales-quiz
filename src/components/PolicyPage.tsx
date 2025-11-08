@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface PolicyPageProps {
   title: string;
@@ -7,8 +8,20 @@ interface PolicyPageProps {
 }
 
 const PolicyPage: React.FC<PolicyPageProps> = ({ title, lastUpdated, children }) => {
+  const navigate = useNavigate();
+
   return (
     <main className="min-h-screen bg-white">
+      {/* Back Button */}
+      <div className="flex justify-center pt-8">
+        <button
+          onClick={() => navigate('/')}
+          className="text-gray-900 hover:text-gray-600 transition-colors font-medium"
+        >
+          ← Back
+        </button>
+      </div>
+
       <div className="mx-auto px-6 py-16" style={{ maxWidth: '800px' }}>
         {/* Page Title */}
         <h1 
