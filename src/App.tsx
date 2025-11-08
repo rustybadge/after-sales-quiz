@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import QuizFlow from './components/QuizFlow'
 import Landing from './Landing'
 import Footer from './components/Footer'
+import CookieBanner from './components/CookieBanner'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfUse from './pages/TermsOfUse'
 import CookiePolicy from './pages/CookiePolicy'
@@ -50,6 +51,7 @@ function App() {
           </>
         } />
       </Routes>
+      <CookieBanner />
     </div>
   )
 }
