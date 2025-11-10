@@ -103,7 +103,8 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
         <button
           onClick={handleNext}
           disabled={!canProceed}
-          className="bg-green-500 hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold px-8 py-3 rounded-lg transition-colors"
+          className="bg-green-500 hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed font-semibold px-8 py-3 rounded-lg transition-colors"
+          style={{ color: !canProceed ? '#9ca3af' : '#111827' }}
         >
           Next question
         </button>

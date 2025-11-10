@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
               <img 
                 src="/logo.png" 
                 alt="Humblebee" 
-                style={{ height: '27px' }}
+                style={{ height: '16px' }}
               />
             </a>
           </div>

@@ -45,9 +45,11 @@ function App() {
             {showQuiz ? (
               <QuizFlow onBackToLanding={handleBackToLanding} />
             ) : (
-              <Landing onStart={handleStart} />
+              <>
+                <Landing onStart={handleStart} />
+                <Footer />
+              </>
             )}
-            <Footer />
           </>
         } />
       </Routes>

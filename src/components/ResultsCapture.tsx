@@ -242,7 +242,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
               <div className="text-green-800 text-lg font-medium mb-8">
                 Assessment Complete
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-green-800 mb-12" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500 }}>
+              <h1 className="text-4xl md:text-5xl font-bold text-green-800 mb-12" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, letterSpacing: '-0.03em' }}>
                 Your after sales score is
               </h1>
               <div className="inline-block bg-green-800 px-12 py-8 rounded-full">
@@ -254,7 +254,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
           {/* Persona Section */}
           <div className="text-center">
             <div className="text-gray-500 text-sm mb-2">Persona</div>
-            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ fontFamily: 'Playfair Display, serif', fontWeight: 500, color: '#111827' }}>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, letterSpacing: '-0.03em', color: '#111827' }}>
               {personaInfo.name}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -290,16 +290,9 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
         <div className="bg-gray-50 p-8 mb-12">
           {recommendationState === 'quick-wins' && (
             <>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-green-100 rounded-2xl flex items-center justify-center">
-                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Your top 3 quick wins</h3>
-                  <p className="text-gray-600">Chosen by your weakest categories</p>
-                </div>
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Your top 3 quick wins</h3>
+                <p className="text-gray-600">Chosen by your weakest categories</p>
               </div>
               
               <div className="space-y-8">
@@ -340,16 +333,9 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
 
           {recommendationState === 'next-horizon' && (
             <>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-green-100 rounded-2xl flex items-center justify-center">
-                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Next-horizon plays</h3>
-                  <p className="text-gray-600">Advanced actions to push strong categories higher</p>
-                </div>
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Next-horizon plays</h3>
+                <p className="text-gray-600">Advanced actions to push strong categories higher</p>
               </div>
               
               <div className="grid gap-4 sm:grid-cols-2">
@@ -375,16 +361,9 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
 
           {recommendationState === 'maintain' && (
             <>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-green-100 rounded-2xl flex items-center justify-center">
-                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Maintain & monitor</h3>
-                  <p className="text-gray-600">All categories are strong. Focus on sustaining performance</p>
-                </div>
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold" style={{ color: '#111827' }}>Maintain & monitor</h3>
+                <p className="text-gray-600">All categories are strong. Focus on sustaining performance</p>
               </div>
               
               <div className="bg-white rounded-2xl p-6 border border-gray-200">
@@ -405,7 +384,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
         {!isSubmitted ? (
           <div className="p-8" style={{ backgroundColor: '#F1E3FF' }}>
             <div className="text-center mb-8">
-              <h3 className="font-bold mb-4" style={{ fontFamily: 'serif', fontSize: '40px', color: '#111827' }}>Get your action plan</h3>
+              <h3 className="font-bold mb-4" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, letterSpacing: '-0.03em', fontSize: '40px', color: '#111827' }}>Get your action plan</h3>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
                 Enter your email to receive the complete report with benchmarks, detailed checklist, and next steps.
               </p>
@@ -456,7 +435,7 @@ const ResultsCapture: React.FC<ResultsCaptureProps> = ({
         {/* Book a consultancy */}
         <div className="mt-8">
           <div className="p-8 text-center bg-white">
-            <h3 className="font-bold mb-4" style={{ fontFamily: 'serif', fontSize: '40px', color: '#111827' }}>Book a consultancy</h3>
+            <h3 className="font-bold mb-4" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, letterSpacing: '-0.03em', fontSize: '40px', color: '#111827' }}>Book a consultancy</h3>
             <p className="text-gray-600 text-lg mb-8">Get a slot with one of our experts and talk about the improvements that can be made to your after sales processes.</p>
             <a
               href="https://calendly.com/your-calendly/15min"
